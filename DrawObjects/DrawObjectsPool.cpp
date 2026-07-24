@@ -60,7 +60,6 @@ void DrawObjectsPool::Deselect() {
     selectedObject = nullptr;
 };
 
-
 void DrawObjectsPool::UpdateSelectedObject(QPoint pos) {
     if (selectedObject == nullptr) {return;}
     selectedObject->SetPos(pos);

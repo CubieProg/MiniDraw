@@ -118,6 +118,17 @@ void CanvasWidget::mousePressEvent(QMouseEvent *event) {
     }
 
     if (message == ToolMessage::QUIT) {
+
+        if (activeTool->GetToolType() == ToolType::SelectTool) {
+            objectsPool->Deselect();
+
+            // Перерисовываем под гизмосы
+            QPainter painter(&renderSurface);
+            painter.setRenderHint(QPainter::Antialiasing);
+            renderSurface.fill(Qt::white);
+            objectsPool->Draw(painter);
+        }
+
         commitNewObject();
         update();
     }

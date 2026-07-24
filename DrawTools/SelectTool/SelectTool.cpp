@@ -18,6 +18,11 @@ ToolMessage SelectTool::OnPress(const QMouseEvent* event) {
         return ToolMessage::ENTER;
     }
 
+    if (event->button() == Qt::RightButton) {
+        state = ToolState::DISABLED;
+        return ToolMessage::QUIT;
+    }
+
     return ToolMessage::NOTHING;
 }
 
