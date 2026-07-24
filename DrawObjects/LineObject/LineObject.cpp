@@ -4,10 +4,11 @@
 
 #include "LineObject.h"
 
-#include <iostream>
-#include <ostream>
 #include <QPainter>
 
+#include "../../Gizmos/DotGizmo.h"
+#include "../../Gizmos/LineGizmo.h"
+#include "../../Gizmos/RectGizmo.h"
 
 LineObject::LineObject(std::vector<QPoint>& _points, QPen _pen, QPoint& atopLeft, QPoint& abottomRight) : BaseDraw("Line object") {
 
@@ -37,15 +38,23 @@ LineObject::LineObject(std::vector<QPoint>& _points, QPen _pen, QPoint& atopLeft
 
         painter.setBrush(QBrush());
         painter.setPen(pen);
+
+        gizmos.push_back(make_shared<DotGizmo>(point));
     }
 
     if (points.size() >= 2) {
+        gizmos.push_back(make_shared<DotGizmo>(points[0]));
+
         for (
             auto left = points.begin(), right = left+1;
             right != points.end();
             ++left, ++right
         ) {
             painter.drawLine(*left - atopLeft, *right - atopLeft);
+
+
+            gizmos.push_back(make_shared<LineGizmo>(*left, *right));
+            gizmos.push_back(make_shared<DotGizmo>(*right));
         }
     }
 

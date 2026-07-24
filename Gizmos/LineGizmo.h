@@ -8,6 +8,16 @@
 
 
 class LineGizmo : public BaseGizmo{
+public:
+    LineGizmo();
+    LineGizmo(QPoint _start, QPoint _end);
+    ~LineGizmo() = default;
+
+    void Draw(QPainter& painter) const override;
+
+private:
+    QPoint start;
+    QPoint end;
 };
 
 
