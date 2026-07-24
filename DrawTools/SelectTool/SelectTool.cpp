@@ -8,3 +8,26 @@ SelectTool::SelectTool() : BaseTool() {
     toolType = ToolType::SelectTool;
     toolName = "SelectTool";
 }
+
+
+ToolMessage SelectTool::OnPress(const QMouseEvent* event) {
+    if (event->button() == Qt::LeftButton) {
+        return ToolMessage::ENTER;
+    }
+
+    return ToolMessage::NOTHING;
+}
+
+
+ToolMessage SelectTool::OnRelease(const QMouseEvent* event) {
+    return ToolMessage::NOTHING;
+};
+
+ToolMessage SelectTool::OnMove(const QMouseEvent* event) {
+    return ToolMessage::NOTHING;
+};
+
+
+shared_ptr<BaseDraw> SelectTool::ProduceDrawObject(QImage& image, QPoint atopLeft, QPoint abottomRight) {
+    return nullptr;
+}

@@ -29,8 +29,6 @@ void CanvasWidget::init(
     toolsContainer = _toolsContainer;
 
     toolsContainer->SetActiveTool(ToolType::Pencil);
-    toolsContainer->SetActiveTool(ToolType::Liner);
-;
 
     toolsContainer->init(paintWidth, currentColor, &preRenderSurface);
 }

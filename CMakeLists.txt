@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 4.2)
-project(simple_window)
+project(MiniDraw)
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_AUTOMOC ON)
@@ -16,7 +16,7 @@ find_package(Qt6 COMPONENTS
 #        CanvasPainter
         REQUIRED)
 
-add_executable(simple_window main.cpp mainwindow.ui
+add_executable(MiniDraw main.cpp mainwindow.ui
         toolbar.ui
         MainWindow.cpp
         MainWindow.h
@@ -63,10 +63,10 @@ add_executable(simple_window main.cpp mainwindow.ui
 )
 
 find_package(Qt6 CONFIG REQUIRED)
-#target_link_libraries(simple_window PRIVATE DB2::DB2 PPS::PPS Oracle::OCI Libb2::Libb2)
+#target_link_libraries(MiniDraw PRIVATE DB2::DB2 PPS::PPS Oracle::OCI Libb2::Libb2)
 
 
-target_link_libraries(simple_window
+target_link_libraries(MiniDraw
         Qt::Core
         Qt::Gui
         Qt::Widgets
@@ -121,13 +121,13 @@ endforeach (QT_LIB)
 #endif ()
 
 
-#if(WIN32 AND TARGET simple_window)
+#if(WIN32 AND TARGET MiniDraw)
 #    find_program(WINDEPLOYQT_EXECUTABLE NAMES windeployqt PATHS "C:/Users/spp16/Qt6.5.3-Windows-x86_64-VS2019-16.11.37/bin")
 #    if(WINDEPLOYQT_EXECUTABLE)
-#        add_custom_command(TARGET simple_window POST_BUILD
+#        add_custom_command(TARGET MiniDraw POST_BUILD
 #                COMMAND "${WINDEPLOYQT_EXECUTABLE}"
 #                "--no-compiler-runtime"
-#                "$<TARGET_FILE:simple_window>"
+#                "$<TARGET_FILE:MiniDraw>"
 #                COMMENT "Running windeployqt to deploy Qt dependencies..."
 #        )
 #    else()
