@@ -38,8 +38,8 @@ shared_ptr<BaseDraw> DrawObjectsPool::Select(QPoint pos) {
     if (layeredQueue.size() == 0) {
         selectedObject = nullptr;
     } else {
-
         auto it = std::find(layeredQueue.begin(), layeredQueue.end(), selectedObject);
+
         if (it != layeredQueue.end()) {
             if (it == layeredQueue.begin()) {
                 selectedObject = layeredQueue.back();
@@ -67,7 +67,6 @@ void DrawObjectsPool::Draw(QPainter& painter) {
     }
 
     if (selectedObject != nullptr) {
-        std::cout << "Draw Gizmos" << std::endl;
         selectedObject->DrawGizmos(painter);
     }
 }

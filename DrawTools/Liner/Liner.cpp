@@ -46,7 +46,6 @@ ToolMessage Liner::OnPress(const QMouseEvent* event) {
 
         state = ToolState::ACTIVE;
 
-        std::cout << this->points.size() << " " << this << std::endl;
         return returnResult;
     }
 

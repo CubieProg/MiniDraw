@@ -75,29 +75,6 @@ MainWindow::MainWindow(QWidget *parent) :
         QTreeWidgetItem* item = new QTreeWidgetItem(QStringList{QString::fromStdString(obj->GetName())});
         ui->treeWidget->addTopLevelItem(item);
     });
-
-    // QRect assert_rect(0, 0, 100, 100);
-    // QPoint assert_point(10, 110);
-    //
-    // std::cout << assert_rect.contains(assert_point) << std::endl;
-
-    //
-    // bool ok;
-    // QString text = QInputDialog::getText(
-    //     this,
-    //     "Заголовок",
-    //     "Введите значение:",
-    //     QLineEdit::Normal,
-    //     "",
-    //     &ok
-    // );
-    //
-    // if (ok && !text.isEmpty()) {
-    //     // пользователь ввёл текст и нажал ОК
-    // } else {
-    //     // отмена или пустой ввод
-    // }
-
 }
 
 MainWindow::~MainWindow()
