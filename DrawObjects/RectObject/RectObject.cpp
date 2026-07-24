@@ -7,6 +7,7 @@
 #include <QPainter>
 #include <qpen.h>
 
+#include "../../Gizmos/DotGizmo.h"
 #include "../../Gizmos/RectGizmo.h"
 // #include "../Gizmos/BaseGizmo.h"
 
@@ -50,6 +51,11 @@ RectObject::RectObject(QPen _pen, QPoint& _atopLeft, QPoint& _bottomRight) : Bas
     );
 
     gizmos.push_back(make_shared<RectGizmo>(boundingRect));
+
+    gizmos.push_back(make_shared<DotGizmo>(boundingRect.topLeft()));
+    gizmos.push_back(make_shared<DotGizmo>(boundingRect.topRight()));
+    gizmos.push_back(make_shared<DotGizmo>(boundingRect.bottomLeft()));
+    gizmos.push_back(make_shared<DotGizmo>(boundingRect.bottomRight()));
 }
 
 void RectObject::Draw(QPainter& painter) const {

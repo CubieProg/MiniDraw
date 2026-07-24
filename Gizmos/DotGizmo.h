@@ -8,7 +8,16 @@
 
 
 class DotGizmo : public BaseGizmo {
+public:
+    DotGizmo();
+    DotGizmo(QPoint _point);
+    ~DotGizmo() = default;
 
+    void Draw(QPainter& painter) const override;
+
+private:
+    QPoint point;
+    int dotGizmoWidth = 4;
 };
 
 
