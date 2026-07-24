@@ -26,3 +26,17 @@ QRect BaseDraw::GetBoundingRect() const {
 std::string BaseDraw::GetName() const {
     return name;
 }
+
+void BaseDraw::DrawGizmos(QPainter& painter) const {
+
+    for (const auto gizmo : gizmos) {
+
+        gizmo->Draw(painter);
+
+        // switch (gizmo->GetType()) {
+        //     case GizmoType::Base:
+        //
+        //         break;
+        // }
+    }
+}

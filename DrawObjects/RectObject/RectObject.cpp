@@ -7,6 +7,9 @@
 #include <QPainter>
 #include <qpen.h>
 
+#include "../../Gizmos/RectGizmo.h"
+// #include "../Gizmos/BaseGizmo.h"
+
 
 RectObject::RectObject() : BaseDraw("Rect object") {
 
@@ -45,8 +48,11 @@ RectObject::RectObject(QPen _pen, QPoint& _atopLeft, QPoint& _bottomRight) : Bas
         boundingRect.width() - pen.width(),
         boundingRect.height() - pen.width()
     );
+
+    gizmos.push_back(make_shared<RectGizmo>(boundingRect));
 }
 
 void RectObject::Draw(QPainter& painter) const {
     painter.drawImage(boundingRect.x(), boundingRect.y(), surface);
+    DrawGizmos(painter);
 }

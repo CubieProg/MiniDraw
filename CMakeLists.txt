@@ -60,6 +60,14 @@ add_executable(MiniDraw main.cpp mainwindow.ui
         DrawObjects/ArrowObject/ArrowObject.h
         DrawObjects/TextObject/TextObject.cpp
         DrawObjects/TextObject/TextObject.h
+        Gizmos/BaseGizmo.cpp
+        Gizmos/BaseGizmo.h
+        Gizmos/RectGizmo.cpp
+        Gizmos/RectGizmo.h
+        Gizmos/DotGizmo.cpp
+        Gizmos/DotGizmo.h
+        Gizmos/LineGizmo.cpp
+        Gizmos/LineGizmo.h
 )
 
 find_package(Qt6 CONFIG REQUIRED)

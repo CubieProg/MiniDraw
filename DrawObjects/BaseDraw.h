@@ -7,23 +7,32 @@
 
 #include <qimage.h>
 #include <QPoint>
+#include <vector>
+#include <memory>
+
+#include "../Gizmos/BaseGizmo.h"
+
+using namespace std;
 
 class BaseDraw {
 public:
     BaseDraw();
-    BaseDraw(const std::string& name);
+    BaseDraw(const string& name);
     virtual ~BaseDraw() = default;
     virtual void Draw(QPainter& painter) const = 0;
+    void DrawGizmos(QPainter& painter) const;
 
-    [[nodiscard]] std::string GetName() const;
+    [[nodiscard]] string GetName() const;
     [[nodiscard]] QRect GetBoundingRect() const;
 
-    void SetName(const std::string& name);
+    void SetName(const string& name);
 
 protected:
-    std::string name;
+    string name;
     QImage surface;
     QRect boundingRect;
+
+    vector<shared_ptr<BaseGizmo>> gizmos;
 };
 
 
