@@ -20,6 +20,7 @@ DrawObjectsPool::DrawObjectsPool() : items() {
 }
 
 void DrawObjectsPool::AddItem(std::shared_ptr<BaseDraw> item) {
+    if (item == nullptr) {return;}
     items.push_back(item);
 }
 
@@ -56,8 +57,15 @@ shared_ptr<BaseDraw> DrawObjectsPool::Select(QPoint pos) {
 };
 
 void DrawObjectsPool::Deselect() {
-
+    selectedObject = nullptr;
 };
+
+
+void DrawObjectsPool::UpdateSelectedObject(QPoint pos) {
+    if (selectedObject == nullptr) {return;}
+    std::cout << "UPDATE" << std::endl;
+    selectedObject->SetPos(pos);
+}
 
 
 

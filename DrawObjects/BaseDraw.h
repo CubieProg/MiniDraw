@@ -14,6 +14,8 @@
 
 using namespace std;
 
+
+
 class BaseDraw {
 public:
     BaseDraw();
@@ -22,10 +24,11 @@ public:
     virtual void Draw(QPainter& painter) const = 0;
     void DrawGizmos(QPainter& painter) const;
 
-    [[nodiscard]] string GetName() const;
-    [[nodiscard]] QRect GetBoundingRect() const;
+    [[nodiscard]] string GetName() const {return name;};
+    [[nodiscard]] QRect GetBoundingRect() const {return boundingRect;};
+    [[nodiscard]] QPoint GetPosition() const;
 
-    void SetName(const string& name);
+    void SetName(const string& _name){this->name = _name;};
 
     void SetPos(const QPoint& pos);
 

@@ -51,5 +51,7 @@ CircleObject::CircleObject(QPen _pen, QPoint& _atopLeft, QPoint& _bottomRight) :
 }
 
 void CircleObject::Draw(QPainter& painter) const {
+    painter.drawRect(boundingRect);
     painter.drawImage(boundingRect.x(), boundingRect.y(), surface);
+    // DrawGizmos(painter);
 }

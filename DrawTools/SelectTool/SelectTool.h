@@ -17,6 +17,13 @@ public:
     ToolMessage OnMove(const QMouseEvent* event) override;
 
     shared_ptr<BaseDraw> ProduceDrawObject(QImage& image, QPoint atopLeft, QPoint abottomRight) override;
+
+    void SetCatchDelta(const QPoint& objectPosition);
+    QPoint GetCatchDelta(){return catchDelta;};
+
+private:
+    QPoint enterPoint;
+    QPoint catchDelta;
 };
 
 
