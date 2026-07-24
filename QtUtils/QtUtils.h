@@ -8,7 +8,7 @@
 
 
 namespace utils {
-    void UpdateRect(QRect& rect, const QPoint& pos) {
+    inline void UpdateRect(QRect& rect, const QPoint& pos) {
         int width = rect.width();
         int height = rect.height();
 

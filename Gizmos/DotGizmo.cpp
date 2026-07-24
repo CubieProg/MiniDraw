@@ -16,6 +16,10 @@ DotGizmo::DotGizmo(QPoint _point) : BaseGizmo() {
     type = GizmoType::Dot;
 }
 
+void DotGizmo::MovePosition(const QPoint& delta) {
+    point += delta;
+}
+
 void DotGizmo::Draw(QPainter& painter) const {
     auto last_pen = painter.pen();
 

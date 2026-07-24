@@ -30,7 +30,8 @@ QPoint BaseDraw::GetPosition() const {
 }
 
 void BaseDraw::SetPos(const QPoint& pos) {
+    QPoint delta = pos - GetPosition();
     utils::UpdateRect(boundingRect, pos);
 
-    //TODO update gizmos
+    std::for_each(gizmos.begin(), gizmos.end(), [delta](auto gizmo) { gizmo->MovePosition(delta); });
 }

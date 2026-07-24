@@ -21,6 +21,7 @@ public:
     virtual ~BaseGizmo() = default;
 
     virtual void Draw(QPainter& painter) const = 0;
+    virtual void MovePosition(const QPoint& delta) = 0;
 
     GizmoType GetType() const {return type;}
 

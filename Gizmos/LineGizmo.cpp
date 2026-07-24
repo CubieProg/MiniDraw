@@ -17,6 +17,11 @@ LineGizmo::LineGizmo(QPoint _start, QPoint _end) : BaseGizmo() {
     type = GizmoType::Line;
 }
 
+void LineGizmo::MovePosition(const QPoint& delta) {
+    start += delta;
+    end += delta;
+}
+
 void LineGizmo::Draw(QPainter& painter) const {
     auto last_pen = painter.pen();
 

@@ -6,6 +6,8 @@
 
 #include <QPainter>
 
+#include "../QtUtils/QtUtils.h"
+
 RectGizmo::RectGizmo() : BaseGizmo() {
     type = GizmoType::Rect;
 }
@@ -13,6 +15,12 @@ RectGizmo::RectGizmo() : BaseGizmo() {
 RectGizmo::RectGizmo(QRect _rect) : BaseGizmo() {
     rect = _rect;
     type = GizmoType::Rect;
+}
+
+
+void RectGizmo::MovePosition(const QPoint& delta) {
+    QPoint currentPosition = QPoint(rect.x(), rect.y());
+    utils::UpdateRect(rect, currentPosition + delta);
 }
 
 void RectGizmo::Draw(QPainter& painter) const {

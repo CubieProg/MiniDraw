@@ -63,7 +63,6 @@ void DrawObjectsPool::Deselect() {
 
 void DrawObjectsPool::UpdateSelectedObject(QPoint pos) {
     if (selectedObject == nullptr) {return;}
-    std::cout << "UPDATE" << std::endl;
     selectedObject->SetPos(pos);
 }
 

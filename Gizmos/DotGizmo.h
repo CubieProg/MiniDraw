@@ -14,6 +14,7 @@ public:
     ~DotGizmo() = default;
 
     void Draw(QPainter& painter) const override;
+    void MovePosition(const QPoint& point) override;
 
 private:
     QPoint point;
