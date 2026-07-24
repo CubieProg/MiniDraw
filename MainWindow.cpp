@@ -76,6 +76,11 @@ MainWindow::MainWindow(QWidget *parent) :
         ui->treeWidget->addTopLevelItem(item);
     });
 
+    // QRect assert_rect(0, 0, 100, 100);
+    // QPoint assert_point(10, 110);
+    //
+    // std::cout << assert_rect.contains(assert_point) << std::endl;
+
     //
     // bool ok;
     // QString text = QInputDialog::getText(

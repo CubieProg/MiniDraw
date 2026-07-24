@@ -40,3 +40,8 @@ void BaseDraw::DrawGizmos(QPainter& painter) const {
         // }
     }
 }
+
+void BaseDraw::SetPos(const QPoint& pos) {
+    boundingRect.setX(pos.x());
+    boundingRect.setY(pos.y());
+}

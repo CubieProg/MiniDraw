@@ -89,6 +89,16 @@ void CanvasWidget::mousePressEvent(QMouseEvent *event) {
             message = text_tool_ptr->ProcessModalResponse(get<0>(res), get<1>(res));
         }
 
+        if (toolsContainer->GetActiveTool()->GetToolType() == ToolType::SelectTool) {
+            objectsPool->Select(event->pos());
+
+            // Перерисовываем под гизмосы
+            QPainter painter(&renderSurface);
+            painter.setRenderHint(QPainter::Antialiasing);
+            renderSurface.fill(Qt::white);
+            objectsPool->Draw(painter);
+        }
+
         setBounds(event->pos());
         update();
     }
@@ -135,6 +145,7 @@ void CanvasWidget::commitNewObject() {
     emit DrawObjectAdded(new_object);
 
     preRenderSurface.fill(Qt::transparent);
+    renderSurface.fill(Qt::white);
     objectsPool->Draw(painter);
 
     update();

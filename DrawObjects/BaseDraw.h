@@ -27,6 +27,8 @@ public:
 
     void SetName(const string& name);
 
+    void SetPos(const QPoint& pos);
+
 protected:
     string name;
     QImage surface;

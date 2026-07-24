@@ -54,5 +54,4 @@ RectObject::RectObject(QPen _pen, QPoint& _atopLeft, QPoint& _bottomRight) : Bas
 
 void RectObject::Draw(QPainter& painter) const {
     painter.drawImage(boundingRect.x(), boundingRect.y(), surface);
-    DrawGizmos(painter);
 }
