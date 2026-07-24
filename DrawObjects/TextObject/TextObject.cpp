@@ -4,9 +4,14 @@
 
 #include "TextObject.h"
 
+#include <iostream>
+#include <ostream>
 #include <qpainter.h>
 #include <qpen.h>
 #include <qstring.h>
+
+#include "../../Gizmos/LineGizmo.h"
+#include "../../Gizmos/RectGizmo.h"
 
 
 TextObject::TextObject() : BaseDraw("Text object") {
@@ -18,32 +23,20 @@ TextObject::TextObject(QPen _pen, std::string _text, QPoint _pos) : BaseDraw("Te
     pen = _pen;
     pos = _pos;
 
-    // const QRect mock_rect(QPoint(0, 0), QPoint(100, 100));
-    // QImage mock_surface(mock_rect.size(), QImage::Format_ARGB32_Premultiplied);
-    // QPainter mock_painter(&mock_surface);
-    // mock_painter.setFont(QFont("Arial", pen.width()));
-    // mock_painter.setPen(pen);
-    //
-    // boundingRect = mock_painter
-    //     .boundingRect(
-    //         mock_rect,
-    //         Qt::TextWordWrap,
-    //         QString::fromStdString(text));
-
-
-
-
     auto font_name = "Arial";
 
     QFont font(font_name, pen.width());
     QFontMetrics fm(font);
-    int width = fm.horizontalAdvance(QString::fromStdString(text));
-    int height = fm.height();
+
+    int width = fm.boundingRect(QString::fromStdString(text)).width();
+    int height = fm.boundingRect(QString::fromStdString(text)).height();
     int ascent = fm.ascent();
     int descent = fm.descent();
 
 
-    boundingRect = QRect(pos.x(), pos.y(), width + pos.x()+2, height + pos.y()+1);
+    boundingRect = QRect(pos.x(), pos.y(), width + pos.x()+6, height + pos.y()+1);
+    boundingRect.setWidth(width + 6); // Хз почему, но иначе width и height прямоугольника некорректные...
+    boundingRect.setHeight(height + 1);
 
     surface = QImage(this->boundingRect.size(), QImage::Format_ARGB32_Premultiplied);
     surface.fill(Qt::transparent);
@@ -54,6 +47,9 @@ TextObject::TextObject(QPen _pen, std::string _text, QPoint _pos) : BaseDraw("Te
     painter.setPen(pen);
 
     painter.drawText(QPoint(1, ascent), QString::fromStdString(text));
+
+
+    gizmos.push_back(make_shared<LineGizmo>(boundingRect.bottomLeft(), boundingRect.bottomRight()));
 }
 
 void TextObject::Draw(QPainter& painter) const {

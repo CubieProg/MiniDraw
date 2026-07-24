@@ -68,6 +68,7 @@ void DrawObjectsPool::Draw(QPainter& painter) {
     }
 
     if (selectedObject != nullptr) {
+        std::cout << "Draw Gizmos" << std::endl;
         selectedObject->DrawGizmos(painter);
     }
 }

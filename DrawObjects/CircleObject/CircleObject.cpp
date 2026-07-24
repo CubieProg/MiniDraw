@@ -2,6 +2,9 @@
 #include <cmath>
 #include "CircleObject.h"
 
+#include "../../Gizmos/DotGizmo.h"
+#include "../../Gizmos/RectGizmo.h"
+
 CircleObject::CircleObject() : BaseDraw("Circle object") {
 
 };
@@ -38,6 +41,13 @@ CircleObject::CircleObject(QPen _pen, QPoint& _atopLeft, QPoint& _bottomRight) :
     auto center = QPoint(rx + pen.width()/2, ry + pen.width()/2);
 
     painter.drawEllipse(center, rx, ry);
+
+    gizmos.push_back(make_shared<RectGizmo>(boundingRect));
+
+    gizmos.push_back(make_shared<DotGizmo>(boundingRect.topLeft()));
+    gizmos.push_back(make_shared<DotGizmo>(boundingRect.topRight()));
+    gizmos.push_back(make_shared<DotGizmo>(boundingRect.bottomLeft()));
+    gizmos.push_back(make_shared<DotGizmo>(boundingRect.bottomRight()));
 }
 
 void CircleObject::Draw(QPainter& painter) const {

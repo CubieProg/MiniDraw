@@ -1,5 +1,7 @@
 #include "ArrowObject.h"
 #include <QPainter>
+#include "../../Gizmos/DotGizmo.h"
+#include "../../Gizmos/LineGizmo.h"
 
 ArrowObject::ArrowObject() : BaseDraw("Circle object") {
 
@@ -54,6 +56,11 @@ ArrowObject::ArrowObject(QPen _pen, QPoint& _startPoint, QPoint& _endPoint) : Ba
 
     painter.drawLine(line);
     painter.drawPolygon(arrowHead);
+
+
+    gizmos.push_back(make_shared<DotGizmo>(_startPoint));
+    gizmos.push_back(make_shared<DotGizmo>(_endPoint));
+    gizmos.push_back(make_shared<LineGizmo>(_startPoint, _endPoint));
 }
 
 void ArrowObject::Draw(QPainter& painter) const {

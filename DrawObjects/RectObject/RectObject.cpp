@@ -9,7 +9,6 @@
 
 #include "../../Gizmos/DotGizmo.h"
 #include "../../Gizmos/RectGizmo.h"
-// #include "../Gizmos/BaseGizmo.h"
 
 
 RectObject::RectObject() : BaseDraw("Rect object") {
