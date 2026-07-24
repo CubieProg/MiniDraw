@@ -26,34 +26,33 @@ void DrawObjectsPool::AddItem(std::shared_ptr<BaseDraw> item) {
 
 
 shared_ptr<BaseDraw> DrawObjectsPool::Select(QPoint pos) {
-
-    auto it = std::find_if(
-        items.begin(),
-        items.end(),
-        [pos](const auto& item) {
+    vector<shared_ptr<BaseDraw>> layeredQueue;
+    ranges::copy_if(
+        items,
+        back_inserter(layeredQueue),
+        [pos](shared_ptr<BaseDraw> item) {
             return item->GetBoundingRect().contains(pos);
-        });
+        }
+    );
 
-
-    if (it != items.end()) {
-        selectedObject = *it;
-        return *it;
-    } else {
+    if (layeredQueue.size() == 0) {
         selectedObject = nullptr;
+    } else {
+
+        auto it = std::find(layeredQueue.begin(), layeredQueue.end(), selectedObject);
+        if (it != layeredQueue.end()) {
+            if (it == layeredQueue.begin()) {
+                selectedObject = layeredQueue.back();
+            } else {
+                it--;
+                selectedObject = *it;
+            }
+        } else {
+            selectedObject = layeredQueue.back();
+        }
     }
 
-    return nullptr;
-
-    // vector<shared_ptr<BaseDraw>> layeredQueue;
-    // ranges::copy_if(
-    //     items,
-    //     back_inserter(layeredQueue),
-    //     [pos](shared_ptr<BaseDraw> item) {
-    //         return  item->GetBoundingRect().contains(pos);
-    //     }
-    // );
-    //
-    // return layeredQueue.front();
+    return selectedObject;
 };
 
 void DrawObjectsPool::Deselect() {
