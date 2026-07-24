@@ -25,7 +25,7 @@ using namespace std;
 ToolsContainer::ToolsContainer() {
 
     tools.insert({
-        // {ToolType::SelectTool, make_shared<SelectTool>()},
+        {ToolType::SelectTool, make_shared<SelectTool>()},
         {ToolType::Pencil, make_shared<Pencil>()},
         {ToolType::Liner, make_shared<Liner>()},
         {ToolType::CircleTool, make_shared<CircleTool>()},
