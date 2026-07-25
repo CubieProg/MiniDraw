@@ -10,7 +10,7 @@
 
 #include "CanvasWidget.h"
 #include "ColorPicker.h"
-#include "DrawObjects/DrawObjectsPool.h"
+#include "../DrawObjects/DrawObjectsPool.h"
 
 
 MainWindow::MainWindow(QWidget *parent) :

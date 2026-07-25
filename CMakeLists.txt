@@ -16,16 +16,16 @@ find_package(Qt6 COMPONENTS
 #        CanvasPainter
         REQUIRED)
 
-add_executable(MiniDraw main.cpp mainwindow.ui
+add_executable(MiniDraw main.cpp Widgets/mainwindow.ui
         toolbar.ui
-        MainWindow.cpp
-        MainWindow.h
+        Widgets/MainWindow.cpp
+        Widgets/MainWindow.h
         ToolBar.cpp
         ToolBar.h
-        CanvasWidget.cpp
-        CanvasWidget.h
-        ColorPicker.cpp
-        ColorPicker.h
+        Widgets/CanvasWidget.cpp
+        Widgets/CanvasWidget.h
+        Widgets/ColorPicker.cpp
+        Widgets/ColorPicker.h
         DrawObjects/BaseDraw.cpp
         DrawObjects/BaseDraw.h
         DrawObjects/PixelObject/PixelObject.cpp

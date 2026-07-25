@@ -7,11 +7,11 @@
 #include <QLineEdit>
 
 #include "ColorPicker.h"
-#include "DrawObjects/LineObject/LineObject.h"
+#include "../DrawObjects/LineObject/LineObject.h"
 
-#include "DrawObjects/PixelObject/PixelObject.h"
-#include "DrawTools/TextTool/TextTool.h"
-#include "DrawTools/SelectTool/SelectTool.h"
+#include "../DrawObjects/PixelObject/PixelObject.h"
+#include "../DrawTools/TextTool/TextTool.h"
+#include "../DrawTools/SelectTool/SelectTool.h"
 
 CanvasWidget::CanvasWidget(QWidget *parent)
     : QWidget(parent),

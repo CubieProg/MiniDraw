@@ -9,8 +9,8 @@
 #include <QApplication>
 #include <QLabel>
 #include <QMainWindow>
-#include "ToolBar.h"
-#include "DrawTools/ToolsContainer.h"
+#include "../ToolBar.h"
+#include "../DrawTools/ToolsContainer.h"
 
 
 #include "ui_mainwindow.h"

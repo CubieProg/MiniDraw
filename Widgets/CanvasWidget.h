@@ -8,8 +8,8 @@
 #include <QWidget>
 #include <QPainter>
 
-#include "DrawObjects/DrawObjectsPool.h"
-#include "DrawTools/ToolsContainer.h"
+#include "../DrawObjects/DrawObjectsPool.h"
+#include "../DrawTools/ToolsContainer.h"
 
 class CanvasWidget : public QWidget
 {
