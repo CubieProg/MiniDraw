@@ -6,10 +6,12 @@
 #include "../../Gizmos/RectGizmo.h"
 
 CircleObject::CircleObject() : BaseDraw("Circle object") {
-
+    type = DrawObjectType::CIRCLE_OBJECT;
 };
 
 CircleObject::CircleObject(QPen _pen, QPoint& _atopLeft, QPoint& _bottomRight) : BaseDraw("Circle object") {
+    type = DrawObjectType::CIRCLE_OBJECT;
+
     atopLeft = QPoint(
         std::min(_atopLeft.x(), _bottomRight.x()),
         std::min(_atopLeft.y(), _bottomRight.y())
@@ -53,3 +55,10 @@ CircleObject::CircleObject(QPen _pen, QPoint& _atopLeft, QPoint& _bottomRight) :
 void CircleObject::Draw(QPainter& painter) const {
     painter.drawImage(boundingRect.x(), boundingRect.y(), surface);
 }
+
+rapidjson::Value CircleObject::JSONRepr(rapidjson::MemoryPoolAllocator<> allocator) const {
+    rapidjson::Value temp(rapidjson::kObjectType);
+    temp.AddMember("type", "CircleObject", allocator);
+    temp.AddMember("data", "some data", allocator);
+    return temp;
+};

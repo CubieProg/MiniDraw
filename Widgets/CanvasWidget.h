@@ -33,6 +33,8 @@ public:
         this->paintWidth = width;
     }
 
+    const QImage& GetImage(){return renderSurface;}
+
     void ForceRerender();
 
 signals:

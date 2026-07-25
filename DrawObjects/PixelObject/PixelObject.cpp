@@ -8,9 +8,11 @@
 
 PixelObject::PixelObject() : BaseDraw("Растровый объект") {
     // name = std::string("Растровый объект");
+    type = DrawObjectType::PIXEL_OBJECT;
 }
 
 PixelObject::PixelObject(QImage& image, QRect& boundingRect) : BaseDraw("Растровый объект") {
+    type = DrawObjectType::PIXEL_OBJECT;
 
     surface = image.copy(boundingRect);
     this->boundingRect = boundingRect;
@@ -39,3 +41,10 @@ PixelObject::PixelObject(QImage& image, QPoint& atopLeft, QPoint& abottomRight) 
 void PixelObject::Draw(QPainter& painter) const {
     painter.drawImage(boundingRect.x(), boundingRect.y(), surface);
 }
+
+rapidjson::Value PixelObject::JSONRepr(rapidjson::MemoryPoolAllocator<> allocator) const {
+    rapidjson::Value temp(rapidjson::kObjectType);
+    temp.AddMember("type", "PixelObject", allocator);
+    temp.AddMember("data", "some data", allocator);
+    return temp;
+};

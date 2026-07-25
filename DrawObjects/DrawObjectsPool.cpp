@@ -10,8 +10,12 @@
 #include "PixelObject/PixelObject.h"
 #include <vector>
 #include <memory>
-
 #include <algorithm>
+
+#include "rapidjson/document.h"
+#include "rapidjson/writer.h"
+#include "rapidjson/stringbuffer.h"
+
 
 using namespace std;
 
@@ -86,3 +90,19 @@ void DrawObjectsPool::Draw(QPainter& painter) {
         selectedObject->DrawGizmos(painter);
     }
 }
+
+
+rapidjson::Document DrawObjectsPool::GenerateJSON() const {
+    rapidjson::Document doc;
+    doc.SetObject();
+
+    rapidjson::Value objectsArray(rapidjson::kArrayType);
+
+    for (auto item : items) {
+        objectsArray.PushBack(item->JSONRepr(doc.GetAllocator()), doc.GetAllocator());
+    }
+
+    doc.AddMember("DrawObjects", objectsArray, doc.GetAllocator());
+
+    return doc;
+};

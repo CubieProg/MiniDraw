@@ -16,6 +16,8 @@ find_package(Qt6 COMPONENTS
         REQUIRED
 )
 
+find_package(RapidJSON CONFIG REQUIRED)
+
 add_executable(MiniDraw main.cpp Widgets/mainwindow.ui
         toolbar.ui
         Widgets/MainWindow.cpp
@@ -78,6 +80,7 @@ target_link_libraries(MiniDraw
         Qt::Core
         Qt::Gui
         Qt::Widgets
+        RapidJSON
 )
 
 

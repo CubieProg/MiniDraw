@@ -14,6 +14,7 @@ public:
     TextObject();
     TextObject(QPen _pen, std::string _text, QPoint _pos);
     void Draw(QPainter& painter) const override;
+    rapidjson::Value JSONRepr(rapidjson::MemoryPoolAllocator<> allocator) const override;
 
 private:
     std::string text;

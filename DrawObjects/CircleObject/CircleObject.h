@@ -12,6 +12,7 @@ public:
     CircleObject();
     CircleObject(QPen _pen, QPoint& _atopLeft, QPoint& _abottomRight);
     void Draw(QPainter& painter) const override;
+    rapidjson::Value JSONRepr(rapidjson::MemoryPoolAllocator<> allocator) const override;
 
 private:
     QPen pen;

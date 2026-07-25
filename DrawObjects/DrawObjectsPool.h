@@ -9,7 +9,7 @@
 #include <vector>
 
 #include "BaseDraw.h"
-#include "PixelObject/PixelObject.h"
+#include "rapidjson/document.h"
 
 
 class DrawObjectsPool {
@@ -26,7 +26,9 @@ public:
     void UpdateSelectedObject(QPoint pos);
 
     void TrySelectObject(std::shared_ptr<BaseDraw> obj);
-    std::shared_ptr<BaseDraw> GetSelectedObject(){return selectedObject;};
+    std::shared_ptr<BaseDraw> GetSelectedObject(){return selectedObject;}
+
+    rapidjson::Document GenerateJSON() const;
 
 private:
     std::shared_ptr<BaseDraw> selectedObject = nullptr;

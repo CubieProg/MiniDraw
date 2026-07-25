@@ -11,10 +11,18 @@
 #include <memory>
 
 #include "../Gizmos/BaseGizmo.h"
+#include "rapidjson/document.h"
+
+enum class DrawObjectType {
+    PIXEL_OBJECT,
+    LINE_OBJECT,
+    CIRCLE_OBJECT,
+    RECT_OBJECT,
+    ARROW_OBJECT,
+    TEXT_OBJECT
+};
 
 using namespace std;
-
-
 
 class BaseDraw {
 public:
@@ -27,12 +35,16 @@ public:
     [[nodiscard]] string GetName() const {return name;};
     [[nodiscard]] QRect GetBoundingRect() const {return boundingRect;};
     [[nodiscard]] QPoint GetPosition() const;
+    [[nodiscard]] DrawObjectType GetType() const {return type;};
 
     void SetName(const string& _name){this->name = _name;};
-
     void SetPos(const QPoint& pos);
 
+    virtual rapidjson::Value JSONRepr(rapidjson::MemoryPoolAllocator<> allocator) const = 0;
+
 protected:
+    DrawObjectType type;
+
     string name;
     QImage surface;
     QRect boundingRect;

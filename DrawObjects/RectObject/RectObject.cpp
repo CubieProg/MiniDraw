@@ -12,10 +12,12 @@
 
 
 RectObject::RectObject() : BaseDraw("Rect object") {
-
+    type = DrawObjectType::RECT_OBJECT;
 };
 
 RectObject::RectObject(QPen _pen, QPoint& _atopLeft, QPoint& _bottomRight) : BaseDraw("Rect object") {
+    type = DrawObjectType::RECT_OBJECT;
+
     atopLeft = QPoint(
         std::min(_atopLeft.x(), _bottomRight.x()),
         std::min(_atopLeft.y(), _bottomRight.y())
@@ -60,3 +62,10 @@ RectObject::RectObject(QPen _pen, QPoint& _atopLeft, QPoint& _bottomRight) : Bas
 void RectObject::Draw(QPainter& painter) const {
     painter.drawImage(boundingRect.x(), boundingRect.y(), surface);
 }
+
+rapidjson::Value RectObject::JSONRepr(rapidjson::MemoryPoolAllocator<> allocator) const {
+    rapidjson::Value temp(rapidjson::kObjectType);
+    temp.AddMember("type", "RectObject", allocator);
+    temp.AddMember("data", "some data", allocator);
+    return temp;
+};

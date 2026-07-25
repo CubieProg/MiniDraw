@@ -4,10 +4,13 @@
 #include "../../Gizmos/LineGizmo.h"
 
 ArrowObject::ArrowObject() : BaseDraw("Circle object") {
+    type = DrawObjectType::ARROW_OBJECT;
 
 };
 
 ArrowObject::ArrowObject(QPen _pen, QPoint& _startPoint, QPoint& _endPoint) : BaseDraw("Arrow object") {
+    type = DrawObjectType::ARROW_OBJECT;
+
     startPoint = _startPoint;
     endPoint = _endPoint;
 
@@ -66,3 +69,10 @@ ArrowObject::ArrowObject(QPen _pen, QPoint& _startPoint, QPoint& _endPoint) : Ba
 void ArrowObject::Draw(QPainter& painter) const {
     painter.drawImage(boundingRect.x(), boundingRect.y(), surface);
 }
+
+rapidjson::Value ArrowObject::JSONRepr(rapidjson::MemoryPoolAllocator<> allocator) const {
+    rapidjson::Value temp(rapidjson::kObjectType);
+    temp.AddMember("type", "ArrowObject", allocator);
+    temp.AddMember("data", "some data", allocator);
+    return temp;
+};

@@ -12,6 +12,7 @@ public:
     PixelObject(QImage& image, QRect& boundingRect);
     PixelObject(QImage& image, QPoint& atopLeft, QPoint& abottomRight);
     void Draw(QPainter& painter) const override;
+    rapidjson::Value JSONRepr(rapidjson::MemoryPoolAllocator<> allocator) const override;
 };
 
 

@@ -11,6 +11,7 @@
 #include "../../Gizmos/RectGizmo.h"
 
 LineObject::LineObject(std::vector<QPoint>& _points, QPen _pen, QPoint& atopLeft, QPoint& abottomRight) : BaseDraw("Line object") {
+    type = DrawObjectType::LINE_OBJECT;
 
     this->points = std::vector<QPoint>(_points);
     this->points = _points;
@@ -63,3 +64,10 @@ LineObject::LineObject(std::vector<QPoint>& _points, QPen _pen, QPoint& atopLeft
 void LineObject::Draw(QPainter& painter) const {
     painter.drawImage(boundingRect.x(), boundingRect.y(), surface);
 }
+
+rapidjson::Value LineObject::JSONRepr(rapidjson::MemoryPoolAllocator<> allocator) const {
+    rapidjson::Value temp(rapidjson::kObjectType);
+    temp.AddMember("type", "LineObject", allocator);
+    temp.AddMember("data", "some data", allocator);
+    return temp;
+};

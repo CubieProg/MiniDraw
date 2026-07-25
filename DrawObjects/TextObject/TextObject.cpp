@@ -15,10 +15,13 @@
 
 
 TextObject::TextObject() : BaseDraw("Text object") {
+    type = DrawObjectType::TEXT_OBJECT;
 
 };
 
 TextObject::TextObject(QPen _pen, std::string _text, QPoint _pos) : BaseDraw("Text object") {
+    type = DrawObjectType::TEXT_OBJECT;
+
     text = _text;
     pen = _pen;
     pos = _pos;
@@ -55,3 +58,10 @@ TextObject::TextObject(QPen _pen, std::string _text, QPoint _pos) : BaseDraw("Te
 void TextObject::Draw(QPainter& painter) const {
     painter.drawImage(boundingRect.x(), boundingRect.y(), surface);
 }
+
+rapidjson::Value TextObject::JSONRepr(rapidjson::MemoryPoolAllocator<> allocator) const {
+    rapidjson::Value temp(rapidjson::kObjectType);
+    temp.AddMember("type", "TextObject", allocator);
+    temp.AddMember("data", "some data", allocator);
+    return temp;
+};
