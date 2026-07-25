@@ -2,8 +2,8 @@
 // Created by spp16 on 21.07.2026.
 //
 
-#ifndef SIMPLE_WINDOW_CANVASWIDGET_H
-#define SIMPLE_WINDOW_CANVASWIDGET_H
+#ifndef MINIDRAW_CANVASWIDGET_H
+#define MINIDRAW_CANVASWIDGET_H
 
 #include <QWidget>
 #include <QPainter>
@@ -73,4 +73,4 @@ private:
     QPoint maxDrawCoords;
 };
 
-#endif //SIMPLE_WINDOW_CANVASWIDGET_H
+#endif //MINIDRAW_CANVASWIDGET_H

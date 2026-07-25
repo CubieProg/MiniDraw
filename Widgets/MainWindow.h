@@ -2,13 +2,9 @@
 // Created by spp16 on 20.07.2026.
 //
 
-#ifndef SIMPLE_WINDOW_MAINWINDOW_H
-#define SIMPLE_WINDOW_MAINWINDOW_H
+#ifndef MINIDRAW_MAINWINDOW_H
+#define MINIDRAW_MAINWINDOW_H
 
-
-#include <QApplication>
-#include <QLabel>
-#include <QMainWindow>
 #include "../ToolBar.h"
 #include "../DrawTools/ToolsContainer.h"
 
@@ -25,7 +21,6 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
-    // QPushButton* button;//("Нажми меня");
 private:
     const int POINTER_DATA_COLUMN = 0;
 
@@ -36,4 +31,4 @@ private:
     shared_ptr<DrawObjectsPool> objectsPool;
 };
 
-#endif //SIMPLE_WINDOW_MAINWINDOW_H
+#endif //MINIDRAW_MAINWINDOW_H

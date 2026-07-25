@@ -2,8 +2,8 @@
 // Created by spp16 on 21.07.2026.
 //
 
-#ifndef SIMPLE_WINDOW_LINEOBJECT_H
-#define SIMPLE_WINDOW_LINEOBJECT_H
+#ifndef MINIDRAW_LINEOBJECT_H
+#define MINIDRAW_LINEOBJECT_H
 #include <qpen.h>
 #include <vector>
 
@@ -23,4 +23,4 @@ private:
 };
 
 
-#endif //SIMPLE_WINDOW_LINEOBJECT_H
+#endif //MINIDRAW_LINEOBJECT_H

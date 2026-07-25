@@ -2,8 +2,8 @@
 // Created by spp16 on 21.07.2026.
 //
 
-#ifndef SIMPLE_WINDOW_CIRCLETOOL_H
-#define SIMPLE_WINDOW_CIRCLETOOL_H
+#ifndef MINIDRAW_CIRCLETOOL_H
+#define MINIDRAW_CIRCLETOOL_H
 #include "../BaseTool.h"
 
 
@@ -23,4 +23,4 @@ private:
 };
 
 
-#endif //SIMPLE_WINDOW_CIRCLETOOL_H
+#endif //MINIDRAW_CIRCLETOOL_H

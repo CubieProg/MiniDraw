@@ -2,8 +2,8 @@
 // Created by spp16 on 21.07.2026.
 //
 
-#ifndef SIMPLE_WINDOW_LINER_H
-#define SIMPLE_WINDOW_LINER_H
+#ifndef MINIDRAW_LINER_H
+#define MINIDRAW_LINER_H
 #include "../BaseTool.h"
 #include "../../DrawObjects/LineObject/LineObject.h"
 
@@ -24,4 +24,4 @@ private:
 };
 
 
-#endif //SIMPLE_WINDOW_LINER_H
+#endif //MINIDRAW_LINER_H

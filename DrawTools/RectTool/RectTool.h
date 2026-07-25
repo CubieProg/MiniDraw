@@ -2,8 +2,8 @@
 // Created by spp16 on 21.07.2026.
 //
 
-#ifndef SIMPLE_WINDOW_RECTTOOL_H
-#define SIMPLE_WINDOW_RECTTOOL_H
+#ifndef MINIDRAW_RECTTOOL_H
+#define MINIDRAW_RECTTOOL_H
 #include "../BaseTool.h"
 
 
@@ -24,4 +24,4 @@ private:
 };
 
 
-#endif //SIMPLE_WINDOW_RECTTOOL_H
+#endif //MINIDRAW_RECTTOOL_H

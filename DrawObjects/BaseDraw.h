@@ -2,8 +2,8 @@
 // Created by spp16 on 21.07.2026.
 //
 
-#ifndef SIMPLE_WINDOW_BASEDRAW_H
-#define SIMPLE_WINDOW_BASEDRAW_H
+#ifndef MINIDRAW_BASEDRAW_H
+#define MINIDRAW_BASEDRAW_H
 
 #include <qimage.h>
 #include <QPoint>
@@ -41,4 +41,4 @@ protected:
 };
 
 
-#endif //SIMPLE_WINDOW_BASEDRAW_H
+#endif //MINIDRAW_BASEDRAW_H

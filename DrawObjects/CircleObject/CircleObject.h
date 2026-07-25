@@ -2,8 +2,8 @@
 // Created by spp16 on 21.07.2026.
 //
 
-#ifndef SIMPLE_WINDOW_CIRCLEOBJECT_H
-#define SIMPLE_WINDOW_CIRCLEOBJECT_H
+#ifndef MINIDRAW_CIRCLEOBJECT_H
+#define MINIDRAW_CIRCLEOBJECT_H
 #include "../BaseDraw.h"
 
 
@@ -20,4 +20,4 @@ private:
 };
 
 
-#endif //SIMPLE_WINDOW_CIRCLEOBJECT_H
+#endif //MINIDRAW_CIRCLEOBJECT_H

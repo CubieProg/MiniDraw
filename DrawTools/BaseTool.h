@@ -2,8 +2,8 @@
 // Created by spp16 on 21.07.2026.
 //
 
-#ifndef SIMPLE_WINDOW_BASETOOL_H
-#define SIMPLE_WINDOW_BASETOOL_H
+#ifndef MINIDRAW_BASETOOL_H
+#define MINIDRAW_BASETOOL_H
 
 #include <QMouseEvent>
 #include <qpen.h>
@@ -80,4 +80,4 @@ protected:
 };
 
 
-#endif //SIMPLE_WINDOW_BASETOOL_H
+#endif //MINIDRAW_BASETOOL_H

@@ -2,8 +2,8 @@
 // Created by spp16 on 21.07.2026.
 //
 
-#ifndef SIMPLE_WINDOW_COLORPICKER_H
-#define SIMPLE_WINDOW_COLORPICKER_H
+#ifndef MINIDRAW_COLORPICKER_H
+#define MINIDRAW_COLORPICKER_H
 
 #include <QWidget>
 #include <QPainter>
@@ -30,4 +30,4 @@ private:
 };
 
 
-#endif //SIMPLE_WINDOW_COLORPICKER_H
+#endif //MINIDRAW_COLORPICKER_H

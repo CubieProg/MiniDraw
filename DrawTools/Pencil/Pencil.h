@@ -2,8 +2,8 @@
 // Created by spp16 on 21.07.2026.
 //
 
-#ifndef SIMPLE_WINDOW_PENCIL_H
-#define SIMPLE_WINDOW_PENCIL_H
+#ifndef MINIDRAW_PENCIL_H
+#define MINIDRAW_PENCIL_H
 #include "../BaseTool.h"
 #include "../../DrawObjects/PixelObject/PixelObject.h"
 
@@ -25,4 +25,4 @@ private:
 };
 
 
-#endif //SIMPLE_WINDOW_PENCIL_H
+#endif //MINIDRAW_PENCIL_H

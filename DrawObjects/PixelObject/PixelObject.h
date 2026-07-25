@@ -2,8 +2,8 @@
 // Created by spp16 on 21.07.2026.
 //
 
-#ifndef SIMPLE_WINDOW_PIXELOBJECT_H
-#define SIMPLE_WINDOW_PIXELOBJECT_H
+#ifndef MINIDRAW_PIXELOBJECT_H
+#define MINIDRAW_PIXELOBJECT_H
 #include "../BaseDraw.h"
 
 class PixelObject : public BaseDraw {
@@ -15,4 +15,4 @@ public:
 };
 
 
-#endif //SIMPLE_WINDOW_PIXELOBJECT_H
+#endif //MINIDRAW_PIXELOBJECT_H

@@ -2,8 +2,8 @@
 // Created by spp16 on 21.07.2026.
 //
 
-#ifndef SIMPLE_WINDOW_RECTOBJECT_H
-#define SIMPLE_WINDOW_RECTOBJECT_H
+#ifndef MINIDRAW_RECTOBJECT_H
+#define MINIDRAW_RECTOBJECT_H
 #include <qpen.h>
 
 #include "../BaseDraw.h"
@@ -22,4 +22,4 @@ private:
 };
 
 
-#endif //SIMPLE_WINDOW_RECTOBJECT_H
+#endif //MINIDRAW_RECTOBJECT_H

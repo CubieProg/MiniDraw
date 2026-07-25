@@ -1,5 +1,5 @@
-#ifndef SIMPLE_WINDOW_ARROWOBJECT_H
-#define SIMPLE_WINDOW_ARROWOBJECT_H
+#ifndef MINIDRAW_ARROWOBJECT_H
+#define MINIDRAW_ARROWOBJECT_H
 #include <qpen.h>
 
 #include "../BaseDraw.h"
@@ -19,4 +19,4 @@ private:
 };
 
 
-#endif //SIMPLE_WINDOW_ARROWOBJECT_H
+#endif //MINIDRAW_ARROWOBJECT_H

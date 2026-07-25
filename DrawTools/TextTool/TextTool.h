@@ -2,8 +2,8 @@
 // Created by spp16 on 21.07.2026.
 //
 
-#ifndef SIMPLE_WINDOW_TEXTTOOL_H
-#define SIMPLE_WINDOW_TEXTTOOL_H
+#ifndef MINIDRAW_TEXTTOOL_H
+#define MINIDRAW_TEXTTOOL_H
 #include "../BaseTool.h"
 
 
@@ -27,4 +27,4 @@ private:
 };
 
 
-#endif //SIMPLE_WINDOW_TEXTTOOL_H
+#endif //MINIDRAW_TEXTTOOL_H
