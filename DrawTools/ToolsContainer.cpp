@@ -55,6 +55,18 @@ void ToolsContainer::SetActiveTool(string toolName) {
     if (iterator != tools.end()) { activeTool = iterator->second; }
 };
 
+void ToolsContainer::SetPaintWidth(int width) {
+    for (const auto & [ key, value ] : tools) {
+        value->SetWidth(width);
+    }
+}
+
+void ToolsContainer::SetPaintColor(const QColor& color){
+    for (const auto & [ key, value ] : tools) {
+        value->SetColor(color);
+    }
+}
+
 void ToolsContainer::init(int width, const QColor& color, QImage* image) {
     if (paintSurface != nullptr) return;
 

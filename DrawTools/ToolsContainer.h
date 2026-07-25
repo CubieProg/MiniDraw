@@ -22,8 +22,8 @@ public:
     void SetActiveTool(ToolType toolType);
     void SetActiveTool(string toolName);
 
-    void SetPaintWidth(int width) {GetActiveTool()->SetWidth(width);}
-    void SetPaintColor(const QColor& color) {GetActiveTool()->SetColor(color);}
+    void SetPaintWidth(int width);// {GetActiveTool()->SetWidth(width);}
+    void SetPaintColor(const QColor& color);// {GetActiveTool()->SetColor(color);}
 
     void init(int width, const QColor& color, QImage* image);
 
