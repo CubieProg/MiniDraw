@@ -1433,26 +1433,6 @@ QToolTip {
                  <string>Objects</string>
                 </property>
                </column>
-               <item>
-                <property name="text">
-                 <string>Объект 1</string>
-                </property>
-                <item>
-                 <property name="text">
-                  <string>Какая то херь</string>
-                 </property>
-                </item>
-               </item>
-               <item>
-                <property name="text">
-                 <string>Объект 2</string>
-                </property>
-                <item>
-                 <property name="text">
-                  <string>Ещё херь</string>
-                 </property>
-                </item>
-               </item>
               </widget>
              </item>
             </layout>
