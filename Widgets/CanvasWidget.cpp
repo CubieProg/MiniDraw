@@ -189,3 +189,13 @@ void CanvasWidget::commitNewObject() {
 
     update();
 }
+
+void CanvasWidget::ForceRerender() {
+    QPainter painter(&renderSurface);
+    painter.setRenderHint(QPainter::Antialiasing);
+    preRenderSurface.fill(Qt::transparent);
+    renderSurface.fill(Qt::white);
+    objectsPool->Draw(painter);
+
+    update();
+}

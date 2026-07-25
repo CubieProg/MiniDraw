@@ -24,6 +24,8 @@ public:
     void Deselect();
 
     void UpdateSelectedObject(QPoint pos);
+
+    void TrySelectObject(std::shared_ptr<BaseDraw> obj);
     std::shared_ptr<BaseDraw> GetSelectedObject(){return selectedObject;};
 
 private:

@@ -27,6 +27,8 @@ public:
 
     // QPushButton* button;//("Нажми меня");
 private:
+    const int POINTER_DATA_COLUMN = 0;
+
     Ui::MainWindow *ui;
     ToolBar *m_leftToolbar;
 

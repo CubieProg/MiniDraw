@@ -66,6 +66,16 @@ void DrawObjectsPool::UpdateSelectedObject(QPoint pos) {
 }
 
 
+void DrawObjectsPool::TrySelectObject(std::shared_ptr<BaseDraw> obj) {
+    auto iterator = std::find_if(
+        items.begin(),
+        items.end(),
+        [obj](const auto& item) { return item == obj; }
+    );
+
+    if (iterator != items.end()) { selectedObject = *iterator; }
+};
+
 
 void DrawObjectsPool::Draw(QPainter& painter) {
     for (auto item : items) {

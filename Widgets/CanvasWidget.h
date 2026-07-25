@@ -33,6 +33,8 @@ public:
         this->paintWidth = width;
     }
 
+    void ForceRerender();
+
 signals:
     void DrawObjectAdded(shared_ptr<BaseDraw> obj);
 

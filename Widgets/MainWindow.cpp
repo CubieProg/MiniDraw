@@ -13,6 +13,28 @@
 #include "../DrawObjects/DrawObjectsPool.h"
 
 
+
+// class MyData {
+// public:
+//     MyData(int value) : m_value(value) {}
+//     int value() const { return m_value; }
+// private:
+//     int m_value;
+// };
+//
+// // В функции, которая создаёт shared_ptr и передаёт её в setData
+// void setItemData(QTreeWidgetItem* item, int column, std::shared_ptr<MyData> data) {
+//     if (data) {
+//         // Создаём QSharedPointer внутри QVariant
+//         QSharedPointer<MyData> shared_data = std::move(data);
+//         // Теперь можно получить сырой указатель на объект и передать в setData
+//         item->setData(column, Qt::UserRole, QVariant::fromValue(shared_data));
+//     } else {
+//         // Обрабатываем случай, когда передача nullptr
+//         item->setData(column, Qt::UserRole, QVariant());
+//     }
+// }
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent), ui(new Ui::MainWindow)
 {
@@ -73,8 +95,20 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connect(canvas, &CanvasWidget::DrawObjectAdded, this, [this](std::shared_ptr<BaseDraw> obj) {
         QTreeWidgetItem* item = new QTreeWidgetItem(QStringList{QString::fromStdString(obj->GetName())});
+
+        item->setData(POINTER_DATA_COLUMN, Qt::UserRole, QVariant::fromValue(obj));
         ui->treeWidget->addTopLevelItem(item);
     });
+
+    connect(
+        ui->treeWidget,
+        &QTreeWidget::itemClicked,
+        this,
+        [this, canvas](QTreeWidgetItem *item, int column) {
+            auto pointer = item->data(POINTER_DATA_COLUMN, Qt::UserRole).value<std::shared_ptr<BaseDraw>>();
+            this->objectsPool->TrySelectObject(pointer);
+            canvas->ForceRerender();
+        });
 }
 
 MainWindow::~MainWindow()
