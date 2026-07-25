@@ -72,7 +72,17 @@ void ArrowObject::Draw(QPainter& painter) const {
 
 rapidjson::Value ArrowObject::JSONRepr(rapidjson::MemoryPoolAllocator<> allocator) const {
     rapidjson::Value temp(rapidjson::kObjectType);
-    temp.AddMember("type", "ArrowObject", allocator);
-    temp.AddMember("data", "some data", allocator);
+    temp.AddMember("Type", "ArrowObject", allocator);
+
+    rapidjson::Value startPointNode(rapidjson::kArrayType);
+    startPointNode.PushBack(startPoint.x(), allocator);
+    startPointNode.PushBack(startPoint.y(), allocator);
+    temp.AddMember("StartPoint", startPointNode, allocator);
+
+    rapidjson::Value bottomRightNode(rapidjson::kArrayType);
+    bottomRightNode.PushBack(endPoint.x(), allocator);
+    bottomRightNode.PushBack(endPoint.y(), allocator);
+    temp.AddMember("EndPoint", bottomRightNode, allocator);
+
     return temp;
 };

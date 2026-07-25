@@ -67,7 +67,18 @@ void LineObject::Draw(QPainter& painter) const {
 
 rapidjson::Value LineObject::JSONRepr(rapidjson::MemoryPoolAllocator<> allocator) const {
     rapidjson::Value temp(rapidjson::kObjectType);
-    temp.AddMember("type", "LineObject", allocator);
-    temp.AddMember("data", "some data", allocator);
+    temp.AddMember("Type", "LineObject", allocator);
+
+    rapidjson::Value pointsArray(rapidjson::kArrayType);
+
+    for (auto point : points) {
+        rapidjson::Value pointNode(rapidjson::kArrayType);
+
+        pointNode.PushBack(point.x(), allocator);
+        pointNode.PushBack(point.y(), allocator);
+        pointsArray.PushBack(pointNode, allocator);
+    }
+    temp.AddMember("Points", pointsArray, allocator);
+
     return temp;
 };

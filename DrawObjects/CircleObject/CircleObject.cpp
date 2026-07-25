@@ -58,7 +58,18 @@ void CircleObject::Draw(QPainter& painter) const {
 
 rapidjson::Value CircleObject::JSONRepr(rapidjson::MemoryPoolAllocator<> allocator) const {
     rapidjson::Value temp(rapidjson::kObjectType);
-    temp.AddMember("type", "CircleObject", allocator);
-    temp.AddMember("data", "some data", allocator);
+    temp.AddMember("Type", "CircleObject", allocator);
+
+    rapidjson::Value topLeftNode(rapidjson::kArrayType);
+    topLeftNode.PushBack(atopLeft.x(), allocator);
+    topLeftNode.PushBack(atopLeft.y(), allocator);
+    temp.AddMember("TopLeft", topLeftNode, allocator);
+
+    rapidjson::Value bottomRightNode(rapidjson::kArrayType);
+    bottomRightNode.PushBack(abottomRight.x(), allocator);
+    bottomRightNode.PushBack(abottomRight.y(), allocator);
+    temp.AddMember("BottomRight", bottomRightNode, allocator);
+
+
     return temp;
 };

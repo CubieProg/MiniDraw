@@ -65,7 +65,18 @@ void RectObject::Draw(QPainter& painter) const {
 
 rapidjson::Value RectObject::JSONRepr(rapidjson::MemoryPoolAllocator<> allocator) const {
     rapidjson::Value temp(rapidjson::kObjectType);
-    temp.AddMember("type", "RectObject", allocator);
-    temp.AddMember("data", "some data", allocator);
+    temp.AddMember("Type", "RectObject", allocator);
+
+
+    rapidjson::Value topLeftNode(rapidjson::kArrayType);
+    topLeftNode.PushBack(atopLeft.x(), allocator);
+    topLeftNode.PushBack(atopLeft.y(), allocator);
+    temp.AddMember("TopLeft", topLeftNode, allocator);
+
+    rapidjson::Value bottomRightNode(rapidjson::kArrayType);
+    bottomRightNode.PushBack(abottomRight.x(), allocator);
+    bottomRightNode.PushBack(abottomRight.y(), allocator);
+    temp.AddMember("BottomRight", bottomRightNode, allocator);
+
     return temp;
 };

@@ -61,7 +61,11 @@ void TextObject::Draw(QPainter& painter) const {
 
 rapidjson::Value TextObject::JSONRepr(rapidjson::MemoryPoolAllocator<> allocator) const {
     rapidjson::Value temp(rapidjson::kObjectType);
-    temp.AddMember("type", "TextObject", allocator);
-    temp.AddMember("data", "some data", allocator);
+
+    auto json_text_value = rapidjson::Value(text.c_str(), text.size(), allocator);
+
+    temp.AddMember("Type", "TextObject", allocator);
+    temp.AddMember("Text", json_text_value, allocator);
+
     return temp;
 };

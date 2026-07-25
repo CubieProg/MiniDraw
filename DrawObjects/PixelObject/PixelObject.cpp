@@ -44,7 +44,7 @@ void PixelObject::Draw(QPainter& painter) const {
 
 rapidjson::Value PixelObject::JSONRepr(rapidjson::MemoryPoolAllocator<> allocator) const {
     rapidjson::Value temp(rapidjson::kObjectType);
-    temp.AddMember("type", "PixelObject", allocator);
+    temp.AddMember("Type", "PixelObject", allocator);
     temp.AddMember("data", "some data", allocator);
     return temp;
 };
