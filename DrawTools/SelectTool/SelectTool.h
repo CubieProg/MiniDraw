@@ -19,7 +19,7 @@ public:
     shared_ptr<BaseDraw> ProduceDrawObject(QImage& image, QPoint atopLeft, QPoint abottomRight) override;
 
     void SetCatchDelta(const QPoint& objectPosition);
-    QPoint GetCatchDelta(){return catchDelta;};
+    QPoint GetCatchDelta() const {return catchDelta;};
 
 private:
     QPoint enterPoint;

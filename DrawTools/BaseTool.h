@@ -5,7 +5,6 @@
 #ifndef SIMPLE_WINDOW_BASETOOL_H
 #define SIMPLE_WINDOW_BASETOOL_H
 
-#include <QColor>
 #include <QMouseEvent>
 #include <qpen.h>
 #include <string>
@@ -63,14 +62,10 @@ public:
         pen.setColor(color);
     }
 
-    // QPen pen(color, width, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin);
-
     void SetPaintSurface(QImage* image){if (paintSurface == nullptr) paintSurface = image;}
 
 
 protected:
-    // void UpdatePen();
-
     QPen pen;
 
     QImage* paintSurface = nullptr;
