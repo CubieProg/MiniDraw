@@ -89,7 +89,6 @@ rapidjson::Value RectObject::JSONRepr(rapidjson::MemoryPoolAllocator<> allocator
     temp.AddMember("Position", *position, allocator);
     temp.AddMember("Size", *size, allocator);
 
-    std::cout << "Post bounds" << std::endl;
     return temp;
 };
 

@@ -10,6 +10,7 @@
 #include <iostream>
 #include <qdialog.h>
 #include <QInputDialog>
+#include <QMessageBox>
 
 #include "CanvasWidget.h"
 #include "ColorPicker.h"
@@ -87,9 +88,6 @@ MainWindow::MainWindow(QWidget *parent) :
     //                          Кнопки сохранения/открытия
     // ------------------------------------------------------------------------------------------------------
     connect(ui->bn_save, &QPushButton::clicked, this, [this]() {
-        // if (fileName == nullptr) { SaveAs(); return; }
-        std::cout << fileName << std::endl;
-
         if (fileName == nullptr) {
             auto file_path = SaveAs();
             fileName = make_shared<string>(file_path);
@@ -131,10 +129,6 @@ MainWindow::MainWindow(QWidget *parent) :
     //                          Реакция на добавление объекта
     // ------------------------------------------------------------------------------------------------------
     connect(canvas, &CanvasWidget::DrawObjectAdded, this, [this](shared_ptr<BaseDraw> obj) {
-        // auto item = new QTreeWidgetItem(QStringList{QString::fromStdString(obj->GetName())});
-        //
-        // item->setData(POINTER_DATA_COLUMN, Qt::UserRole, QVariant::fromValue(obj));
-        // ui->treeWidget->addTopLevelItem(item);
         AddTreeWidgetItem(obj);
     });
 
@@ -147,6 +141,14 @@ MainWindow::MainWindow(QWidget *parent) :
             objectsPool->TrySelectObject(pointer);
             canvas->ForceRerender();
         });
+    // ------------------------------------------------------------------------------------------------------
+
+    //                          Красивая кнопка
+    // ------------------------------------------------------------------------------------------------------
+
+    connect(ui->toodle, &QPushButton::clicked, this, [this]() {
+        QMessageBox::information(this, "Очень важная информация", "Это просто красивая кнопка.\nНажми её ещё раз.", QMessageBox::Ok);
+    });
     // ------------------------------------------------------------------------------------------------------
 
 
@@ -270,7 +272,7 @@ string MainWindow::OpenFile() {
     );
 
     if (openFileName.isEmpty()) {
-        std::cout << "Error" << std::endl;
+        std::cerr << "Error" << std::endl;
         return nullptr;
     }
 

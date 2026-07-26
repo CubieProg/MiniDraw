@@ -114,9 +114,7 @@ rapidjson::Document DrawObjectsPool::GenerateJSON() const {
 
     rapidjson::Value objectsArray(rapidjson::kArrayType);
 
-    std::cout << "Objects at all: " << items.size() << std::endl;
     for (auto item : items) {
-        std::cout << item->GetName() << std::endl;
         objectsArray.PushBack(item->JSONRepr(doc.GetAllocator()), doc.GetAllocator());
 
     }
@@ -138,7 +136,7 @@ void DrawObjectsPool::LoadMDRW(const rapidjson::Document& doc) {
     // -----------------------------------------------------------------
 
     if (!doc.HasMember("DrawObjects")) {
-        std::cout << "Uncorrect .mdrw format" << std::endl;
+        std::cerr << "Uncorrect .mdrw format" << std::endl;
         return;
     }
 
