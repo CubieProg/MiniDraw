@@ -4,6 +4,7 @@
 
 #include "MainWindow.h"
 
+#include <filesystem>
 #include <QFileDialog>
 #include <QString>
 #include <iostream>
@@ -22,6 +23,8 @@
 #include <rapidjson/istreamwrapper.h>
 
 #include "../DrawObjects/PixelObject/PixelObject.h"
+
+namespace fs = std::filesystem;
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent), ui(new Ui::MainWindow)
@@ -84,10 +87,17 @@ MainWindow::MainWindow(QWidget *parent) :
     //                          Кнопки сохранения/открытия
     // ------------------------------------------------------------------------------------------------------
     connect(ui->bn_save, &QPushButton::clicked, this, [this]() {
-        if (fileName == nullptr) { SaveAs(); return; }
+        // if (fileName == nullptr) { SaveAs(); return; }
+        std::cout << fileName << std::endl;
 
+        if (fileName == nullptr) {
+            auto file_path = SaveAs();
+            fileName = make_shared<string>(file_path);
+        }
 
-
+        bool res = SaveFile();
+        auto file_name = fs::path(*fileName).filename().string();
+        ui->openFileLabel->setText(QString::fromStdString(file_name));
     });
 
     connect(ui->bn_save_as, &QPushButton::clicked, this, [this]() {
@@ -100,10 +110,21 @@ MainWindow::MainWindow(QWidget *parent) :
         }
 
         bool res = SaveFile();
+        auto file_name = fs::path(*fileName).filename().string();
+        ui->openFileLabel->setText(QString::fromStdString(file_name));
     });
 
     connect(ui->bn_open, &QPushButton::clicked, this, [this]() {
-        OpenFile();
+        auto file_path = OpenFile();
+        auto file_name = fs::path(file_path).filename().string();
+
+        ui->openFileLabel->setText(QString::fromStdString(file_name));
+
+        if (fileName == nullptr) {
+            fileName = make_shared<string>(file_path);
+        } else {
+            *fileName = file_path;
+        }
     });
     // ------------------------------------------------------------------------------------------------------
 
@@ -137,10 +158,6 @@ MainWindow::MainWindow(QWidget *parent) :
     });
     // ------------------------------------------------------------------------------------------------------
 
-
-    // objectsPool->LoadMDRW(nullptr);
-
-    OpenMDRW("C:/Users/spp16/CLionProjects/MiniDraw/TestImages/testPixelObj.mdrw");
 }
 
 MainWindow::~MainWindow()
@@ -158,6 +175,15 @@ void MainWindow::AddTreeWidgetItem(shared_ptr<BaseDraw> obj) {
 
     item->setData(POINTER_DATA_COLUMN, Qt::UserRole, QVariant::fromValue(obj));
     ui->treeWidget->addTopLevelItem(item);
+};
+
+void MainWindow::RebuildTreeWidget() {
+    ClearTreeWidget();
+    const auto drawObjects = objectsPool->GetDrawObjects();
+
+    for (const auto& drawObject : drawObjects) {
+        AddTreeWidgetItem(drawObject);
+    }
 };
 
 
@@ -304,7 +330,7 @@ void MainWindow::OpenMDRW(const string& filePath) {
     objectsPool->Clear();
     ClearTreeWidget();
 
-    std::ifstream ifs(filePath); //"C:/Users/spp16/CLionProjects/MiniDraw/TestImages/test_json.json"
+    std::ifstream ifs(filePath);
     if (!ifs.is_open()) {
         std::cerr << "Failed to open file!" << std::endl;
         return;
@@ -322,6 +348,6 @@ void MainWindow::OpenMDRW(const string& filePath) {
 
     objectsPool->LoadMDRW(doc);
 
-    // AddTreeWidgetItem(imageDrawObject);
+    RebuildTreeWidget();
     canvas->ForceRerender();
 };

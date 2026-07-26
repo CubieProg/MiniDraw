@@ -33,6 +33,8 @@ public:
 
     rapidjson::Document GenerateJSON() const;
 
+    const std::vector<std::shared_ptr<BaseDraw>> GetDrawObjects(){return items;};
+
 private:
 
     unordered_map<string, DrawObjectType> typeAlias;

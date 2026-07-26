@@ -31,6 +31,8 @@ private:
 
     unordered_map<string, SaveFormat> saveFormatAliases;
 
+    // string PathToName;
+
     string SaveAs();
     bool SaveFile() const;
     bool SavePNG() const;
@@ -42,6 +44,9 @@ private:
 
     void ClearTreeWidget();
     void AddTreeWidgetItem(shared_ptr<BaseDraw> obj);
+    void RebuildTreeWidget();
+
+
 
     CanvasWidget* canvas;
 
