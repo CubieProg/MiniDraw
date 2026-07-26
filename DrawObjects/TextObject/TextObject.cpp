@@ -76,3 +76,41 @@ rapidjson::Value TextObject::JSONRepr(rapidjson::MemoryPoolAllocator<> allocator
 
     return temp;
 };
+
+
+
+shared_ptr<TextObject> TextObject::FromJSON(const rapidjson::Value& json) {
+    if (!json.HasMember("Pen")) {
+        std::cerr << "Uncorrect .mdrw format" << std::endl;
+        return nullptr;
+    }
+    if (!json["Pen"].HasMember("Width")) {
+        std::cerr << "Uncorrect .mdrw format" << std::endl;
+        return nullptr;
+    }
+    if (!json["Pen"].HasMember("Color")) {
+        std::cerr << "Uncorrect .mdrw format" << std::endl;
+        return nullptr;
+    }
+
+    if (!json.HasMember("Position") || json["Position"].Size() != 2) {
+        std::cerr << "Uncorrect .mdrw format" << std::endl;
+        return nullptr;
+    }
+    if (!json.HasMember("Text")) {
+        std::cerr << "Uncorrect .mdrw format" << std::endl;
+        return nullptr;
+    }
+
+    int pen_width = json["Pen"]["Width"].GetDouble();
+
+    std::string text = json["Text"].GetString();
+    
+    QPoint pos = QPoint(json["Position"][0].GetDouble(), json["Position"][1].GetDouble());
+
+    QPen pen(json["Pen"]["Color"].GetString());
+    pen.setWidth(pen_width);
+    pen.setCapStyle(Qt::RoundCap);
+
+    return make_shared<TextObject>(pen, text, pos);
+}

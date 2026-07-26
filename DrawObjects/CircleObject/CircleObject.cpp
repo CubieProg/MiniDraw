@@ -2,6 +2,8 @@
 #include <cmath>
 #include "CircleObject.h"
 
+#include <iostream>
+
 #include "../../Gizmos/DotGizmo.h"
 #include "../../Gizmos/RectGizmo.h"
 
@@ -81,3 +83,47 @@ rapidjson::Value CircleObject::JSONRepr(rapidjson::MemoryPoolAllocator<> allocat
 
     return temp;
 };
+
+shared_ptr<CircleObject> CircleObject::FromJSON(const rapidjson::Value& json) {
+    if (!json.HasMember("Pen")) {
+        std::cerr << "Uncorrect .mdrw format" << std::endl;
+        return nullptr;
+    }
+    if (!json["Pen"].HasMember("Width")) {
+        std::cerr << "Uncorrect .mdrw format" << std::endl;
+        return nullptr;
+    }
+    if (!json["Pen"].HasMember("Color")) {
+        std::cerr << "Uncorrect .mdrw format" << std::endl;
+        return nullptr;
+    }
+
+    if (!json.HasMember("TopLeft") || json["TopLeft"].Size() != 2) {
+        std::cerr << "Uncorrect .mdrw format" << std::endl;
+        return nullptr;
+    }
+    if (!json.HasMember("BottomRight") || json["BottomRight"].Size() != 2) {
+        std::cerr << "Uncorrect .mdrw format" << std::endl;
+        return nullptr;
+    }
+    if (!json.HasMember("Position") || json["Position"].Size() != 2) {
+        std::cerr << "Uncorrect .mdrw format" << std::endl;
+        return nullptr;
+    }
+    if (!json.HasMember("Size") || json["Size"].Size() != 2) {
+        std::cerr << "Uncorrect .mdrw format" << std::endl;
+        return nullptr;
+    }
+
+
+    int pen_width = json["Pen"]["Width"].GetDouble();
+
+    QPoint topLeft = QPoint(json["TopLeft"][0].GetDouble(), json["TopLeft"][1].GetDouble());
+    QPoint bottomRight = QPoint(json["BottomRight"][0].GetDouble(), json["BottomRight"][1].GetDouble());
+
+    QPen pen(json["Pen"]["Color"].GetString());
+    pen.setWidth(pen_width);
+    pen.setCapStyle(Qt::RoundCap);
+
+    return make_shared<CircleObject>(pen, topLeft, bottomRight);
+}

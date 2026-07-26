@@ -1,7 +1,10 @@
 #include "ArrowObject.h"
+
+#include <iostream>
 #include <QPainter>
 #include "../../Gizmos/DotGizmo.h"
 #include "../../Gizmos/LineGizmo.h"
+#include "../LineObject/LineObject.h"
 
 ArrowObject::ArrowObject() : BaseDraw("Circle object") {
     type = DrawObjectType::ARROW_OBJECT;
@@ -88,3 +91,39 @@ rapidjson::Value ArrowObject::JSONRepr(rapidjson::MemoryPoolAllocator<> allocato
 
     return temp;
 };
+
+
+shared_ptr<ArrowObject> ArrowObject::FromJSON(const rapidjson::Value& json) {
+    if (!json.HasMember("Pen")) {
+        std::cerr << "Uncorrect .mdrw format" << std::endl;
+        return nullptr;
+    }
+    if (!json["Pen"].HasMember("Width")) {
+        std::cerr << "Uncorrect .mdrw format" << std::endl;
+        return nullptr;
+    }
+    if (!json["Pen"].HasMember("Color")) {
+        std::cerr << "Uncorrect .mdrw format" << std::endl;
+        return nullptr;
+    }
+
+    if (!json.HasMember("StartPoint") || json["StartPoint"].Size() != 2) {
+        std::cerr << "Uncorrect .mdrw format" << std::endl;
+        return nullptr;
+    }
+    if (!json.HasMember("EndPoint") || json["EndPoint"].Size() != 2) {
+        std::cerr << "Uncorrect .mdrw format" << std::endl;
+        return nullptr;
+    }
+
+    int pen_width = json["Pen"]["Width"].GetDouble();
+
+    QPoint startPoint = QPoint(json["StartPoint"][0].GetDouble(), json["StartPoint"][1].GetDouble());
+    QPoint endPoint = QPoint(json["EndPoint"][0].GetDouble(), json["EndPoint"][1].GetDouble());
+
+    QPen pen(json["Pen"]["Color"].GetString());
+    pen.setWidth(pen_width);
+    pen.setCapStyle(Qt::RoundCap);
+
+    return make_shared<ArrowObject>(pen, startPoint, endPoint);
+}

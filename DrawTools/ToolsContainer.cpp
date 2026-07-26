@@ -42,7 +42,6 @@ shared_ptr<BaseTool> ToolsContainer::GetActiveTool() {
 
 void ToolsContainer::SetActiveTool(ToolType toolType) {
     activeTool = tools.at(toolType);
-    std::cout << activeTool->GetToolName() << std::endl;
 };
 
 void ToolsContainer::SetActiveTool(string toolName) {

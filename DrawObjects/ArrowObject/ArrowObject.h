@@ -13,6 +13,7 @@ public:
     void Draw(QPainter& painter) const override;
     rapidjson::Value JSONRepr(rapidjson::MemoryPoolAllocator<> allocator) const override;
 
+    static shared_ptr<ArrowObject> FromJSON(const rapidjson::Value& json);
 private:
     // QPen pen;
     QPoint startPoint;

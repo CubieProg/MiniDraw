@@ -19,6 +19,7 @@
 #include "rapidjson/stringbuffer.h"
 #include <fstream>
 #include <iostream>
+#include <rapidjson/istreamwrapper.h>
 
 #include "../DrawObjects/PixelObject/PixelObject.h"
 
@@ -135,6 +136,11 @@ MainWindow::MainWindow(QWidget *parent) :
         {"mdrw", SaveFormat::MDRW}
     });
     // ------------------------------------------------------------------------------------------------------
+
+
+    // objectsPool->LoadMDRW(nullptr);
+
+    OpenMDRW("C:/Users/spp16/CLionProjects/MiniDraw/TestImages/lineOnly.mdrw");
 }
 
 MainWindow::~MainWindow()
@@ -295,5 +301,27 @@ void MainWindow::OpenPNG(const string& filePath) {
 
 void MainWindow::OpenMDRW(const string& filePath) {
     // if (fileName == nullptr) { return; }
+    objectsPool->Clear();
+    ClearTreeWidget();
 
+    std::ifstream ifs(filePath); //"C:/Users/spp16/CLionProjects/MiniDraw/TestImages/test_json.json"
+    if (!ifs.is_open()) {
+        std::cerr << "Failed to open file!" << std::endl;
+        return;
+    }
+
+    rapidjson::IStreamWrapper isw(ifs);
+    rapidjson::Document doc;
+    doc.ParseStream(isw);
+
+    if (doc.HasParseError()) {
+        std::cerr << "Parse error: " << doc.GetParseError() << std::endl;
+        canvas->ForceRerender();
+        return;
+    }
+
+    objectsPool->LoadMDRW(doc);
+
+    // AddTreeWidgetItem(imageDrawObject);
+    canvas->ForceRerender();
 };

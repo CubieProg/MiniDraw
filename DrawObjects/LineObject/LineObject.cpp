@@ -5,6 +5,7 @@
 #include "LineObject.h"
 
 #include <filesystem>
+#include <iostream>
 #include <QPainter>
 
 #include "../../Gizmos/DotGizmo.h"
@@ -85,3 +86,66 @@ rapidjson::Value LineObject::JSONRepr(rapidjson::MemoryPoolAllocator<> allocator
 
     return temp;
 };
+
+shared_ptr<LineObject> LineObject::FromJSON(const rapidjson::Value& json) {
+    if (!json.HasMember("Pen")) {
+        std::cerr << "Uncorrect .mdrw format" << std::endl;
+        return nullptr;
+    }
+    if (!json["Pen"].HasMember("Width")) {
+        std::cerr << "Uncorrect .mdrw format" << std::endl;
+        return nullptr;
+    }
+    if (!json["Pen"].HasMember("Color")) {
+        std::cerr << "Uncorrect .mdrw format" << std::endl;
+        return nullptr;
+    }
+    if (!json.HasMember("Points")) {
+        std::cerr << "Uncorrect .mdrw format" << std::endl;
+        return nullptr;
+    }
+
+
+    const rapidjson::Value& jsonPoints = json["Points"];
+
+    if (jsonPoints.Size() == 0) {
+        std::cerr << "Uncorrect .mdrw format" << std::endl;
+        return nullptr;
+    }
+
+    int min_x = jsonPoints[0][0].GetDouble();
+    int min_y = jsonPoints[0][1].GetDouble();
+
+    int max_x = jsonPoints[0][0].GetDouble();
+    int max_y = jsonPoints[0][1].GetDouble();
+
+    int pen_width = json["Pen"]["Width"].GetDouble();
+
+    std::vector<QPoint> new_points;
+
+    for (rapidjson::SizeType i = 0; i < jsonPoints.Size(); i++) {
+        if (jsonPoints[i].Size() != 2) {
+            std::cerr << "Uncorrect .mdrw format" << std::endl;
+            return nullptr;
+        }
+
+        auto current_x = jsonPoints[i][0].GetDouble();
+        auto current_y = jsonPoints[i][1].GetDouble();
+
+        if (current_x - pen_width < min_x) {min_x = current_x - pen_width;}
+        if (current_y - pen_width < min_y) {min_y = current_y - pen_width;}
+        if (current_x + pen_width > max_x) {max_x = current_x + pen_width;}
+        if (current_y + pen_width > max_y) {max_y = current_y + pen_width;}
+
+        new_points.push_back(QPoint(current_x, current_y));
+    }
+
+    QPoint topLeft = QPoint(min_x, min_y);
+    QPoint bottomRight = QPoint(max_x, max_y);
+
+    QPen pen(json["Pen"]["Color"].GetString());
+    pen.setWidth(pen_width);
+    pen.setCapStyle(Qt::RoundCap);
+
+    return make_shared<LineObject>(new_points, pen, topLeft, bottomRight);
+}

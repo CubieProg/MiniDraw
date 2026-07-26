@@ -7,20 +7,36 @@
 #include <iostream>
 
 #include "BaseDraw.h"
-#include "PixelObject/PixelObject.h"
 #include <vector>
 #include <memory>
 #include <algorithm>
 
 #include "rapidjson/document.h"
 #include "rapidjson/writer.h"
-#include "rapidjson/stringbuffer.h"
+
+#include "rapidjson/istreamwrapper.h"
+#include <fstream>
+
+#include "ArrowObject/ArrowObject.h"
+#include "CircleObject/CircleObject.h"
+#include "LineObject/LineObject.h"
+#include "PixelObject/PixelObject.h"
+#include "RectObject/RectObject.h"
+#include "TextObject/TextObject.h"
 
 
 using namespace std;
 
 DrawObjectsPool::DrawObjectsPool() : items() {
 
+    typeAlias.insert({
+        {"PixelObject", DrawObjectType::PIXEL_OBJECT},
+        {"LineObject", DrawObjectType::LINE_OBJECT},
+        {"CircleObject", DrawObjectType::CIRCLE_OBJECT},
+        {"RectObject", DrawObjectType::RECT_OBJECT},
+        {"ArrowObject", DrawObjectType::ARROW_OBJECT},
+        {"TextObject", DrawObjectType::TEXT_OBJECT},
+    });
 }
 
 void DrawObjectsPool::AddItem(std::shared_ptr<BaseDraw> item) {
@@ -114,3 +130,58 @@ void DrawObjectsPool::Clear() {
     selectedObject = nullptr;
     items.clear();
 }
+
+void DrawObjectsPool::LoadMDRW(const rapidjson::Document& doc) {
+
+    // Key check example
+    // document["Person"][0].HasMember("name")
+    // -----------------------------------------------------------------
+
+    if (!doc.HasMember("DrawObjects")) {
+        std::cout << "Uncorrect .mdrw format" << std::endl;
+        return;
+    }
+
+    const rapidjson::Value& drawObjects = doc["DrawObjects"];
+    for (rapidjson::SizeType i = 0; i < drawObjects.Size(); i++) {
+        // auto item = drawObjects[i];
+
+        if (!drawObjects[i].HasMember("Type")) {
+            std::cerr << "Uncorrect .mdrw format" << std::endl;
+            return;
+        }
+
+        std::string type_as_str = drawObjects[i]["Type"].GetString();
+
+        if (typeAlias.find(type_as_str) == typeAlias.end()){
+            std::cerr << "Uncorrect .mdrw format" << std::endl;
+            return;
+        }
+
+        DrawObjectType type = typeAlias[type_as_str];
+
+        switch (type) {
+            case DrawObjectType::PIXEL_OBJECT:
+                // AddItem(make_shared<PixelObject>());
+                break;
+            case DrawObjectType::LINE_OBJECT:
+                AddItem(LineObject::FromJSON(drawObjects[i]));
+                break;
+            case DrawObjectType::CIRCLE_OBJECT:
+                AddItem(CircleObject::FromJSON(drawObjects[i]));
+                break;
+            case DrawObjectType::RECT_OBJECT:
+                AddItem(RectObject::FromJSON(drawObjects[i]));
+                break;
+            case DrawObjectType::ARROW_OBJECT:
+                AddItem(ArrowObject::FromJSON(drawObjects[i]));
+                break;
+            case DrawObjectType::TEXT_OBJECT:
+                std::cout << "Add text" << std::endl;
+                AddItem(TextObject::FromJSON(drawObjects[i]));
+                break;
+        }
+
+    }
+
+};

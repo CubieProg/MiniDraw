@@ -28,11 +28,14 @@ public:
     void TrySelectObject(std::shared_ptr<BaseDraw> obj);
     std::shared_ptr<BaseDraw> GetSelectedObject(){return selectedObject;}
 
+    void LoadMDRW(const rapidjson::Document& doc);
     void Clear();
 
     rapidjson::Document GenerateJSON() const;
 
 private:
+
+    unordered_map<string, DrawObjectType> typeAlias;
     std::shared_ptr<BaseDraw> selectedObject = nullptr;
     std::vector<std::shared_ptr<BaseDraw>> items;
 };
