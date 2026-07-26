@@ -28,6 +28,8 @@ public:
     void TrySelectObject(std::shared_ptr<BaseDraw> obj);
     std::shared_ptr<BaseDraw> GetSelectedObject(){return selectedObject;}
 
+    void Clear();
+
     rapidjson::Document GenerateJSON() const;
 
 private:

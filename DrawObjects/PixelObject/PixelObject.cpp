@@ -3,21 +3,12 @@
 
 #include "PixelObject.h"
 
-#include <iostream>
-#include <ostream>
 #include <rapidjson/stringbuffer.h>
-#include <rapidjson/prettywriter.h>
 
 #include "../BaseDraw.h"
 
 #include "../../Gizmos/DotGizmo.h"
 #include "../../Gizmos/RectGizmo.h"
-
-// PixelObject::PixelObject() : BaseDraw("Pixel object") {
-//     // name = std::string("Растровый объект");
-//     std::cout << "PixelObject base constructor" << std::endl;
-//     type = DrawObjectType::PIXEL_OBJECT;
-// }
 
 PixelObject::PixelObject(QImage& image, QRect& boundingRect) : BaseDraw("Pixel object") {
     type = DrawObjectType::PIXEL_OBJECT;
@@ -53,7 +44,6 @@ void PixelObject::Draw(QPainter& painter) const {
 rapidjson::Value PixelObject::JSONRepr(rapidjson::MemoryPoolAllocator<> allocator) const {
     rapidjson::Value temp(rapidjson::kObjectType);
     temp.AddMember("Type", "PixelObject", allocator);
-    // temp.AddMember("data", "some data", allocator);
 
     // auto bounds = JSONBoundingRepr(allocator); // Какая-то странная херь не работает именно на PixelObject-е
     // rapidjson::Value* position = get<0>(bounds);

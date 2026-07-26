@@ -34,6 +34,17 @@ void CanvasWidget::init(
     toolsContainer->init(paintWidth, currentColor, &preRenderSurface);
 }
 
+void CanvasWidget::BlitImage(const QImage& image) {
+    QPainter painter(&renderSurface);
+    painter.setRenderHint(QPainter::Antialiasing);
+
+
+    renderSurface.fill(Qt::white);
+
+    painter.drawImage(0, 0, image);
+
+    update();
+}
 
 
 void CanvasWidget::setBounds(const QPoint& mousePoint) {

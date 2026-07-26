@@ -109,3 +109,8 @@ rapidjson::Document DrawObjectsPool::GenerateJSON() const {
 
     return doc;
 };
+
+void DrawObjectsPool::Clear() {
+    selectedObject = nullptr;
+    items.clear();
+}

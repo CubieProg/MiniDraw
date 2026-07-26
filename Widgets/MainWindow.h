@@ -25,16 +25,23 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
-    string SaveAs();
 
 private:
     const int POINTER_DATA_COLUMN = 0;
 
     unordered_map<string, SaveFormat> saveFormatAliases;
 
+    string SaveAs();
     bool SaveFile() const;
     bool SavePNG() const;
     bool SaveMDRW() const;
+
+    string OpenFile();
+    void OpenPNG(const string& filePath);
+    void OpenMDRW(const string& filePath);
+
+    void ClearTreeWidget();
+    void AddTreeWidgetItem(shared_ptr<BaseDraw> obj);
 
     CanvasWidget* canvas;
 

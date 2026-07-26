@@ -23,6 +23,7 @@ public:
         const shared_ptr<ToolsContainer> toolsContainer
     );
 
+    void BlitImage(const QImage& image);
 
     void setColor(const QColor &color) {
         toolsContainer->SetPaintColor(color);

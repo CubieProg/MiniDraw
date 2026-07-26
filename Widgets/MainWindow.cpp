@@ -20,6 +20,8 @@
 #include <fstream>
 #include <iostream>
 
+#include "../DrawObjects/PixelObject/PixelObject.h"
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent), ui(new Ui::MainWindow)
 {
@@ -98,18 +100,20 @@ MainWindow::MainWindow(QWidget *parent) :
 
         bool res = SaveFile();
     });
+
     connect(ui->bn_open, &QPushButton::clicked, this, [this]() {
-        std::cout << "Open" << std::endl;
+        OpenFile();
     });
     // ------------------------------------------------------------------------------------------------------
 
     //                          Реакция на добавление объекта
     // ------------------------------------------------------------------------------------------------------
     connect(canvas, &CanvasWidget::DrawObjectAdded, this, [this](shared_ptr<BaseDraw> obj) {
-        auto item = new QTreeWidgetItem(QStringList{QString::fromStdString(obj->GetName())});
-
-        item->setData(POINTER_DATA_COLUMN, Qt::UserRole, QVariant::fromValue(obj));
-        ui->treeWidget->addTopLevelItem(item);
+        // auto item = new QTreeWidgetItem(QStringList{QString::fromStdString(obj->GetName())});
+        //
+        // item->setData(POINTER_DATA_COLUMN, Qt::UserRole, QVariant::fromValue(obj));
+        // ui->treeWidget->addTopLevelItem(item);
+        AddTreeWidgetItem(obj);
     });
 
     connect(
@@ -139,6 +143,18 @@ MainWindow::~MainWindow()
 }
 
 
+void MainWindow::ClearTreeWidget() {
+    ui->treeWidget->clear();
+};
+
+void MainWindow::AddTreeWidgetItem(shared_ptr<BaseDraw> obj) {
+    auto item = new QTreeWidgetItem(QStringList{QString::fromStdString(obj->GetName())});
+
+    item->setData(POINTER_DATA_COLUMN, Qt::UserRole, QVariant::fromValue(obj));
+    ui->treeWidget->addTopLevelItem(item);
+};
+
+
 string MainWindow::SaveAs() {
     QString saveFileName = QFileDialog::getSaveFileName(
         this,
@@ -146,8 +162,6 @@ string MainWindow::SaveAs() {
         QDir::currentPath(),
         "MiniDraw format (*.mdrw);;PNG image (*.png)"
     );
-
-
 
     return saveFileName.toStdString();
 }
@@ -211,3 +225,75 @@ bool MainWindow::SaveFile() const {
 
     return true;
 }
+
+
+
+
+string MainWindow::OpenFile() {
+    QString openFileName = QFileDialog::getOpenFileName(
+        this, // родительский виджет
+        "Открыть файл", // заголовок окна
+        QDir::currentPath(),
+        "Images (*.png *.mdrw)"
+    );
+
+    if (openFileName.isEmpty()) {
+        std::cout << "Error" << std::endl;
+        return nullptr;
+    }
+
+    auto filePath = openFileName.toStdString();
+
+    // Ищем формат файла
+    // -------------------------------------------------------
+    char point_delimiter = '.';
+    std::istringstream iss(filePath);
+    string format;
+    while (std::getline(iss, format, point_delimiter)) { }
+    // -------------------------------------------------------
+
+    // Сравниваем формат в алиасе
+    // -------------------------------------------------------
+    auto it = saveFormatAliases.find(format);
+
+    if (it == saveFormatAliases.end()) {
+        return nullptr;
+    }
+    // -------------------------------------------------------
+
+    auto openFormat = saveFormatAliases.at(format);
+
+
+    switch (openFormat) {
+        case SaveFormat::PNG:
+            OpenPNG(filePath);
+            break;
+
+        case SaveFormat::MDRW:
+            OpenMDRW(filePath);
+            break;
+    }
+
+    return filePath;
+}
+
+
+
+void MainWindow::OpenPNG(const string& filePath) {
+    // if (filePath == nullptr) { return; }
+    QImage load_image(QString::fromStdString(filePath));
+    objectsPool->Clear();
+    ClearTreeWidget();
+
+    auto imageRect = load_image.rect();
+    auto imageDrawObject = make_shared<PixelObject>(load_image, imageRect);
+    objectsPool->AddItem(imageDrawObject);
+    AddTreeWidgetItem(imageDrawObject);
+
+    canvas->ForceRerender();
+};
+
+void MainWindow::OpenMDRW(const string& filePath) {
+    // if (fileName == nullptr) { return; }
+
+};
