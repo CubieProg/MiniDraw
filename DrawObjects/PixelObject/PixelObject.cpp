@@ -3,6 +3,7 @@
 
 #include "PixelObject.h"
 
+#include <iostream>
 #include <rapidjson/stringbuffer.h>
 
 #include "../BaseDraw.h"
@@ -10,10 +11,20 @@
 #include "../../Gizmos/DotGizmo.h"
 #include "../../Gizmos/RectGizmo.h"
 
-PixelObject::PixelObject(QImage& image, QRect& boundingRect) : BaseDraw("Pixel object") {
+PixelObject::PixelObject() : BaseDraw("Pixel object") {
+
+}
+
+PixelObject::PixelObject(QImage& image, QRect& boundingRect, bool load) : BaseDraw("Pixel object") {
     type = DrawObjectType::PIXEL_OBJECT;
 
-    surface = image.copy(boundingRect);
+    if (load) {
+        QRect copyRect = QRect(0, 0, boundingRect.width(), boundingRect.height());
+        surface = image.copy(copyRect);
+    } else {
+        surface = image.copy(boundingRect);
+    }
+
     this->boundingRect = boundingRect;
 
     gizmos.push_back(make_shared<RectGizmo>(boundingRect));
@@ -69,12 +80,51 @@ rapidjson::Value PixelObject::JSONRepr(rapidjson::MemoryPoolAllocator<> allocato
     QBuffer buffer(&byteArray);
     buffer.open(QIODevice::ReadWrite);
     surface.save(&buffer, "PNG");
+    buffer.close();
 
-    QString str = QString::fromUtf8(byteArray);
-    auto data_as_string = str.toStdString();
-    auto json_text_value = rapidjson::Value(data_as_string.c_str(), data_as_string.size(), allocator);
+
+    QByteArray base64Data = byteArray.toBase64(QByteArray::Base64Encoding);
+
+    auto json_text_value = rapidjson::Value(base64Data.constData(), base64Data.size(), allocator);
     temp.AddMember("Data", json_text_value, allocator);
     // -----------------------------------------------------------------
 
     return temp;
 };
+
+shared_ptr<PixelObject> PixelObject::FromJSON(const rapidjson::Value& json) {
+    if (!json.HasMember("Data")) {
+        std::cerr << "Uncorrect .mdrw format" << std::endl;
+        return nullptr;
+    }
+
+    if (!json.HasMember("Position") || json["Position"].Size() != 2) {
+        std::cerr << "Uncorrect .mdrw format" << std::endl;
+        return nullptr;
+    }
+    if (!json.HasMember("Size") || json["Size"].Size() != 2) {
+        std::cerr << "Uncorrect .mdrw format" << std::endl;
+        return nullptr;
+    }
+
+
+    QRect boundingRect = QRect(
+        json["Position"][0].GetDouble(),
+        json["Position"][1].GetDouble(),
+        json["Size"][0].GetDouble(),
+        json["Size"][1].GetDouble()
+    );
+
+    QByteArray base64Data(
+        json["Data"].GetString(),
+        json["Data"].GetStringLength()
+    );
+
+    auto rawImage = QByteArray::fromBase64Encoding(
+        base64Data,
+        QByteArray::Base64Option::OmitTrailingEquals
+    );
+    QImage img = QImage::fromData(rawImage.decoded);
+
+    return make_shared<PixelObject>(img, boundingRect, true);
+}

@@ -140,7 +140,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     // objectsPool->LoadMDRW(nullptr);
 
-    OpenMDRW("C:/Users/spp16/CLionProjects/MiniDraw/TestImages/lineOnly.mdrw");
+    OpenMDRW("C:/Users/spp16/CLionProjects/MiniDraw/TestImages/testPixelObj.mdrw");
 }
 
 MainWindow::~MainWindow()

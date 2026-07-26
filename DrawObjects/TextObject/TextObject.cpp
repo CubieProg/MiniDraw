@@ -105,7 +105,7 @@ shared_ptr<TextObject> TextObject::FromJSON(const rapidjson::Value& json) {
     int pen_width = json["Pen"]["Width"].GetDouble();
 
     std::string text = json["Text"].GetString();
-    
+
     QPoint pos = QPoint(json["Position"][0].GetDouble(), json["Position"][1].GetDouble());
 
     QPen pen(json["Pen"]["Color"].GetString());

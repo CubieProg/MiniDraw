@@ -162,7 +162,7 @@ void DrawObjectsPool::LoadMDRW(const rapidjson::Document& doc) {
 
         switch (type) {
             case DrawObjectType::PIXEL_OBJECT:
-                // AddItem(make_shared<PixelObject>());
+                AddItem(PixelObject::FromJSON(drawObjects[i]));
                 break;
             case DrawObjectType::LINE_OBJECT:
                 AddItem(LineObject::FromJSON(drawObjects[i]));
@@ -177,7 +177,6 @@ void DrawObjectsPool::LoadMDRW(const rapidjson::Document& doc) {
                 AddItem(ArrowObject::FromJSON(drawObjects[i]));
                 break;
             case DrawObjectType::TEXT_OBJECT:
-                std::cout << "Add text" << std::endl;
                 AddItem(TextObject::FromJSON(drawObjects[i]));
                 break;
         }
