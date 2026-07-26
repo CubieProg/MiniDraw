@@ -19,7 +19,7 @@ public:
 private:
     std::string text;
     QPoint pos;
-    QPen pen;
+    // QPen pen;
 
 };
 

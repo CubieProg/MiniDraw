@@ -9,6 +9,7 @@
 #include <QPoint>
 #include <vector>
 #include <memory>
+#include <qpen.h>
 
 #include "../Gizmos/BaseGizmo.h"
 #include "rapidjson/document.h"
@@ -43,6 +44,8 @@ public:
     virtual rapidjson::Value JSONRepr(rapidjson::MemoryPoolAllocator<> allocator) const = 0;
 
 protected:
+    QPen pen;
+
     DrawObjectType type;
 
     string name;
@@ -50,6 +53,10 @@ protected:
     QRect boundingRect;
 
     vector<shared_ptr<BaseGizmo>> gizmos;
+
+
+    rapidjson::Value JSONPenRepr(rapidjson::MemoryPoolAllocator<> allocator) const;
+    std::tuple<rapidjson::Value*, rapidjson::Value*> JSONBoundingRepr(rapidjson::MemoryPoolAllocator<> allocator) const;
 };
 
 

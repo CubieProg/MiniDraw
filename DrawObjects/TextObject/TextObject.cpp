@@ -67,5 +67,12 @@ rapidjson::Value TextObject::JSONRepr(rapidjson::MemoryPoolAllocator<> allocator
     temp.AddMember("Type", "TextObject", allocator);
     temp.AddMember("Text", json_text_value, allocator);
 
+    temp.AddMember("Pen", JSONPenRepr(allocator), allocator);
+
+    auto bounds = JSONBoundingRepr(allocator);
+    auto position = get<0>(bounds);
+
+    temp.AddMember("Position", *position, allocator);
+
     return temp;
 };

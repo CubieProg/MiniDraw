@@ -84,5 +84,7 @@ rapidjson::Value ArrowObject::JSONRepr(rapidjson::MemoryPoolAllocator<> allocato
     bottomRightNode.PushBack(endPoint.y(), allocator);
     temp.AddMember("EndPoint", bottomRightNode, allocator);
 
+    temp.AddMember("Pen", JSONPenRepr(allocator), allocator);
+
     return temp;
 };

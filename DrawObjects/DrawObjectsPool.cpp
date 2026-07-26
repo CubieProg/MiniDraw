@@ -20,7 +20,7 @@
 using namespace std;
 
 DrawObjectsPool::DrawObjectsPool() : items() {
-    items.push_back(std::make_shared<PixelObject>());
+
 }
 
 void DrawObjectsPool::AddItem(std::shared_ptr<BaseDraw> item) {
@@ -98,8 +98,11 @@ rapidjson::Document DrawObjectsPool::GenerateJSON() const {
 
     rapidjson::Value objectsArray(rapidjson::kArrayType);
 
+    std::cout << "Objects at all: " << items.size() << std::endl;
     for (auto item : items) {
+        std::cout << item->GetName() << std::endl;
         objectsArray.PushBack(item->JSONRepr(doc.GetAllocator()), doc.GetAllocator());
+
     }
 
     doc.AddMember("DrawObjects", objectsArray, doc.GetAllocator());

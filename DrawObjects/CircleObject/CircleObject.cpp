@@ -70,6 +70,14 @@ rapidjson::Value CircleObject::JSONRepr(rapidjson::MemoryPoolAllocator<> allocat
     bottomRightNode.PushBack(abottomRight.y(), allocator);
     temp.AddMember("BottomRight", bottomRightNode, allocator);
 
+    temp.AddMember("Pen", JSONPenRepr(allocator), allocator);
+
+    auto bounds = JSONBoundingRepr(allocator);
+    auto position = get<0>(bounds);
+    auto size = get<1>(bounds);
+
+    temp.AddMember("Position", *position, allocator);
+    temp.AddMember("Size", *size, allocator);
 
     return temp;
 };

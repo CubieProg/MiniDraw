@@ -4,6 +4,7 @@
 
 #include "LineObject.h"
 
+#include <filesystem>
 #include <QPainter>
 
 #include "../../Gizmos/DotGizmo.h"
@@ -79,6 +80,8 @@ rapidjson::Value LineObject::JSONRepr(rapidjson::MemoryPoolAllocator<> allocator
         pointsArray.PushBack(pointNode, allocator);
     }
     temp.AddMember("Points", pointsArray, allocator);
+
+    temp.AddMember("Pen", JSONPenRepr(allocator), allocator);
 
     return temp;
 };

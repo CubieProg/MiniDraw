@@ -63,6 +63,8 @@ void RectObject::Draw(QPainter& painter) const {
     painter.drawImage(boundingRect.x(), boundingRect.y(), surface);
 }
 
+#include <iostream>
+
 rapidjson::Value RectObject::JSONRepr(rapidjson::MemoryPoolAllocator<> allocator) const {
     rapidjson::Value temp(rapidjson::kObjectType);
     temp.AddMember("Type", "RectObject", allocator);
@@ -78,5 +80,15 @@ rapidjson::Value RectObject::JSONRepr(rapidjson::MemoryPoolAllocator<> allocator
     bottomRightNode.PushBack(abottomRight.y(), allocator);
     temp.AddMember("BottomRight", bottomRightNode, allocator);
 
+    temp.AddMember("Pen", JSONPenRepr(allocator), allocator);
+
+    auto bounds = JSONBoundingRepr(allocator);
+    auto position = get<0>(bounds);
+    auto size = get<1>(bounds);
+
+    temp.AddMember("Position", *position, allocator);
+    temp.AddMember("Size", *size, allocator);
+
+    std::cout << "Post bounds" << std::endl;
     return temp;
 };

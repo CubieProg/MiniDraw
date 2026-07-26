@@ -14,7 +14,7 @@ public:
     rapidjson::Value JSONRepr(rapidjson::MemoryPoolAllocator<> allocator) const override;
 
 private:
-    QPen pen;
+    // QPen pen;
     QPoint startPoint;
     QPoint endPoint;
 };

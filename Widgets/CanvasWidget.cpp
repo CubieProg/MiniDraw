@@ -29,7 +29,7 @@ void CanvasWidget::init(
     objectsPool = _objectsPool;
     toolsContainer = _toolsContainer;
 
-    toolsContainer->SetActiveTool(ToolType::Pencil);
+    toolsContainer->SetActiveTool(ToolType::SelectTool);
 
     toolsContainer->init(paintWidth, currentColor, &preRenderSurface);
 }
