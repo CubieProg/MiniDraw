@@ -1,4 +1,5 @@
 #include <QPainter>
+#include <QBuffer>
 
 #include "PixelObject.h"
 
@@ -52,7 +53,7 @@ void PixelObject::Draw(QPainter& painter) const {
 rapidjson::Value PixelObject::JSONRepr(rapidjson::MemoryPoolAllocator<> allocator) const {
     rapidjson::Value temp(rapidjson::kObjectType);
     temp.AddMember("Type", "PixelObject", allocator);
-    temp.AddMember("data", "some data", allocator);
+    // temp.AddMember("data", "some data", allocator);
 
     // auto bounds = JSONBoundingRepr(allocator); // Какая-то странная херь не работает именно на PixelObject-е
     // rapidjson::Value* position = get<0>(bounds);
@@ -70,6 +71,19 @@ rapidjson::Value PixelObject::JSONRepr(rapidjson::MemoryPoolAllocator<> allocato
 
     temp.AddMember("Position", posArray, allocator);
     temp.AddMember("Size", sizeArray, allocator);
+    // -----------------------------------------------------------------
+
+    // Сохраняем картинку
+    // -----------------------------------------------------------------
+    QByteArray byteArray;
+    QBuffer buffer(&byteArray);
+    buffer.open(QIODevice::ReadWrite);
+    surface.save(&buffer, "PNG");
+
+    QString str = QString::fromUtf8(byteArray);
+    auto data_as_string = str.toStdString();
+    auto json_text_value = rapidjson::Value(data_as_string.c_str(), data_as_string.size(), allocator);
+    temp.AddMember("Data", json_text_value, allocator);
     // -----------------------------------------------------------------
 
     return temp;
