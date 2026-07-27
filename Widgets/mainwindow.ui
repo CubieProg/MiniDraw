@@ -477,7 +477,7 @@ QToolTip {
               margin-left: 48px;</string>
             </property>
             <property name="text">
-             <string>untitled.fmt</string>
+             <string>untitled.mdrw</string>
             </property>
            </widget>
           </item>

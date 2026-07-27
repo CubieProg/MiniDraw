@@ -19,11 +19,8 @@ find_package(Qt6 COMPONENTS
 find_package(RapidJSON CONFIG REQUIRED)
 
 add_executable(MiniDraw main.cpp Widgets/mainwindow.ui
-        toolbar.ui
         Widgets/MainWindow.cpp
         Widgets/MainWindow.h
-        ToolBar.cpp
-        ToolBar.h
         Widgets/CanvasWidget.cpp
         Widgets/CanvasWidget.h
         Widgets/ColorPicker.cpp

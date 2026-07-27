@@ -34,6 +34,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
     ui->setupUi(this);
 
+    setWindowTitle(QString::fromStdString(app_name));
+
     objectsPool = make_shared<DrawObjectsPool>();
     toolsContainer = make_shared<ToolsContainer>();
 

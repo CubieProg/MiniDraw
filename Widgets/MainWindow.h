@@ -2,12 +2,11 @@
 // Created by spp16 on 20.07.2026.
 //
 
-#define MINIDRAW_VERSION "0.1.1"
+#define MINIDRAW_VERSION "0.1.2"
 
 #ifndef MINIDRAW_MAINWINDOW_H
 #define MINIDRAW_MAINWINDOW_H
 
-#include "../ToolBar.h"
 #include "../DrawTools/ToolsContainer.h"
 #include "ui_mainwindow.h"
 
@@ -47,11 +46,12 @@ private:
     void RebuildTreeWidget();
 
 
+    std::string app_name = "MiniDraw";
 
     CanvasWidget* canvas;
 
     Ui::MainWindow *ui;
-    ToolBar *m_leftToolbar;
+    // ToolBar *m_leftToolbar;
 
     shared_ptr<ToolsContainer> toolsContainer;
     shared_ptr<DrawObjectsPool> objectsPool;
