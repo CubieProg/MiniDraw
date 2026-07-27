@@ -7,6 +7,7 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
 
 add_compile_options(/utf-8)
+#set(CMAKE_WINDOWS_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
 
 
 find_package(Qt6 COMPONENTS
@@ -80,6 +81,13 @@ target_link_libraries(MiniDraw
         RapidJSON
 )
 
+if(WIN32)
+    set_property(TARGET ${PROJECT_NAME} PROPERTY WIN32_EXECUTABLE true)
+    # Если используете MSVC, может понадобиться дополнительно указать точку входа
+    if(MSVC)
+        set_target_properties(${PROJECT_NAME} PROPERTIES LINK_FLAGS "/ENTRY:mainCRTStartup")
+    endif()
+endif()
 
 if (EXISTS "C:/Users/spp16/.vcpkg-clion/vcpkg/installed/x64-windows/Qt6/plugins/platforms/qwindows.dll")
     add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
