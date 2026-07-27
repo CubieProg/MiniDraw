@@ -25,6 +25,7 @@
 
 #include "../DrawObjects/PixelObject/PixelObject.h"
 
+
 namespace fs = std::filesystem;
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -145,7 +146,6 @@ MainWindow::MainWindow(QWidget *parent) :
 
     //                          Красивая кнопка
     // ------------------------------------------------------------------------------------------------------
-
     connect(ui->toodle, &QPushButton::clicked, this, [this]() {
         QMessageBox::information(this, "Очень важная информация", "Это просто красивая кнопка.\nНажми её ещё раз.", QMessageBox::Ok);
     });
@@ -208,7 +208,10 @@ bool MainWindow::SavePNG() const {
 
 bool MainWindow::SaveMDRW() const {
     auto doc = objectsPool->GenerateJSON();
+    std::string ver_str = MINIDRAW_VERSION;
 
+    rapidjson::Value ver_json_str(ver_str.c_str(), ver_str.size(), doc.GetAllocator());
+    doc.AddMember("Version", ver_json_str, doc.GetAllocator());
 
     // Convert Document to a JSON string
     rapidjson::StringBuffer buffer;

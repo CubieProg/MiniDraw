@@ -2,6 +2,8 @@
 // Created by spp16 on 20.07.2026.
 //
 
+#define MINIDRAW_VERSION "0.1.0"
+
 #ifndef MINIDRAW_MAINWINDOW_H
 #define MINIDRAW_MAINWINDOW_H
 
@@ -30,8 +32,6 @@ private:
     const int POINTER_DATA_COLUMN = 0;
 
     unordered_map<string, SaveFormat> saveFormatAliases;
-
-    // string PathToName;
 
     string SaveAs();
     bool SaveFile() const;
