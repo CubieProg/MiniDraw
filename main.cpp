@@ -9,6 +9,11 @@ int main(int argc, char *argv[])
 
     QApplication app_(argc, argv);
     MainWindow window_;
+
+    app_.setWindowIcon(QIcon("icon.png"));
+
+
+
     window_.showMaximized();
 
     return app_.exec();

@@ -25,7 +25,21 @@ void ColorPicker::mousePressEvent(QMouseEvent *event) {
 
     if (event->button() == Qt::LeftButton) {
 
-        QColor newColor = QColorDialog::getColor(currentColor, this, "Выберите цвет");
+
+        auto dialog = new QColorDialog();
+
+        QPalette pal = dialog->palette();
+        pal.setColor(QPalette::Window, Qt::white);                 // фон окна
+        pal.setColor(QPalette::WindowText, Qt::black);              // текст
+        pal.setColor(QPalette::Base, Qt::white);                    // фон полей ввода
+        pal.setColor(QPalette::Text, Qt::black);                    // текст в полях
+        pal.setColor(QPalette::Button, QColor(240, 240, 240));       // кнопки
+        pal.setColor(QPalette::ButtonText, Qt::black);              // текст кнопок
+
+        dialog->setPalette(pal);
+
+        // QColor newColor = QColorDialog::getColor(currentColor, this, "Выберите цвет");
+        QColor newColor = dialog->getColor();
 
         if (newColor.isValid()) {
             currentColor = newColor;

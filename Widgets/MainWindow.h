@@ -2,7 +2,7 @@
 // Created by spp16 on 20.07.2026.
 //
 
-#define MINIDRAW_VERSION "0.1.2"
+#define MINIDRAW_VERSION "0.1.3"
 
 #ifndef MINIDRAW_MAINWINDOW_H
 #define MINIDRAW_MAINWINDOW_H

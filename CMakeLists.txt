@@ -7,7 +7,15 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
 
 add_compile_options(/utf-8)
-#set(CMAKE_WINDOWS_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
+#add_custom_command(
+#        OUTPUT "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/testIcon.ico"
+#        COMMAND ${CMAKE_COMMAND} -E copy_if_different
+#        "${CMAKE_SOURCE_DIR}/resources/testIcon.ico"
+#        "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/testIcon.ico"
+#        DEPENDS "${CMAKE_SOURCE_DIR}/resources/testIcon.ico"
+#)
+#
+#add_custom_target(copy_icon ALL DEPENDS "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/testIcon.ico")
 
 
 find_package(Qt6 COMPONENTS
@@ -81,7 +89,26 @@ target_link_libraries(MiniDraw
         RapidJSON
 )
 
+
+
 if(WIN32)
+
+    target_sources(MiniDraw PRIVATE
+            "${CMAKE_SOURCE_DIR}/icon.rc"
+    )
+
+#    target_sources(MiniDraw PRIVATE
+#        "${CMAKE_SOURCE_DIR}/resources/testIcon.ico"
+#    )
+#
+#    add_custom_command(
+#        TARGET MiniDraw POST_BUILD
+#        COMMAND ${CMAKE_COMMAND} -E copy_if_different
+#        "${CMAKE_SOURCE_DIR}/resources/testIcon.ico"
+#        "$<TARGET_FILE_DIR:MiniDraw>/testIcon.ico"
+#        COMMENT "Copying testIcon.ico to output directory"
+#    )
+
     set_property(TARGET ${PROJECT_NAME} PROPERTY WIN32_EXECUTABLE true)
     # Если используете MSVC, может понадобиться дополнительно указать точку входа
     if(MSVC)
