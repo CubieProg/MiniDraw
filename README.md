@@ -100,7 +100,7 @@
 
 По клику на имя объекта, он выделяется
 
-<img width="400" height="204" alt="tree selection" src="https://github.com/user-attachments/assets/730a006a-217a-4df7-85cc-37213b9cef16" />
+<img width="600" height="304" alt="tree selection" src="https://github.com/user-attachments/assets/730a006a-217a-4df7-85cc-37213b9cef16" />
 
 ## Вспомогательная панель
 
