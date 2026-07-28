@@ -27,6 +27,9 @@ find_package(Qt6 COMPONENTS
 
 find_package(RapidJSON CONFIG REQUIRED)
 
+qt_standard_project_setup()
+
+
 add_executable(MiniDraw main.cpp Widgets/mainwindow.ui
         Widgets/MainWindow.cpp
         Widgets/MainWindow.h
@@ -88,6 +91,25 @@ target_link_libraries(MiniDraw
         Qt::Widgets
         RapidJSON
 )
+
+#install(TARGETS MiniDraw
+#        BUNDLE  DESTINATION .
+#        RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+#)
+
+install(TARGETS ${PROJECT_NAME}
+        BUNDLE  DESTINATION .
+        RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+)
+
+
+qt_generate_deploy_app_script(
+        TARGET ${PROJECT_NAME}
+        OUTPUT_SCRIPT deploy_script
+        NO_UNSUPPORTED_PLATFORM_ERROR
+)
+
+install(SCRIPT ${deploy_script})
 
 
 
